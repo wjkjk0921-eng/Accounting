@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>✨ 療癒記帳本</title>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+
+<body>
+
+<div class="cute-bg" aria-hidden="true">
+  <div class="cute-sticker s1">🎀</div>
+  <div class="cute-sticker s2">💗</div>
+  <div class="cute-sticker s3">✨</div>
+  <div class="cute-sticker s4">🍑</div>
+</div>
+
+<div class="app">
+  <div class="header">
+    <div class="theme-control">
+      <select class="theme-selector" id="theme-select" onchange="changeTheme(this.value)">
+        <option value="pink">🍑 蜜桃粉</option>
+        <option value="green">🍵 抹茶綠</option>
+        <option value="milktea">🧋 奶茶風</option>
+        <option value="cinnamoroll">☁️ 藍白風</option>
+        <option value="kuromi">🖤 紫黑風</option>
+        <option value="dark">🌙 暗黑風</option>
+        <option value="pompom">🍮 奶黃風</option>
+      </select>
+    </div>
+
+    <h1>✨ 療癒記帳本</h1>
+    <p>記下每一筆，讓金錢流動更清晰</p>
+  </div>
+
+  <div class="page-tabs">
+    <button class="page-tab active" id="tab-record" onclick="switchPage('record')">記帳</button>
+    <button class="page-tab" id="tab-compare" onclick="switchPage('compare')">比較分析</button>
+  </div>
+
+  <div class="month-nav">
+    <button onclick="changeMonth(-1)">&#8249;</button>
+    <span id="month-label"></span>
+    <button onclick="changeMonth(1)">&#8250;</button>
+  </div>
+
+  <div class="page active" id="page-record">
+    <div class="stats">
+      <div class="stat-card income">
+        <div class="lbl">收入</div>
+        <div class="val" id="stat-income">$0</div>
+      </div>
+
+      <div class="stat-card expense">
+        <div class="lbl">支出</div>
+        <div class="val" id="stat-expense">$0</div>
+      </div>
+
+      <div class="stat-card balance">
+        <div class="lbl">結餘</div>
+        <div class="val" id="stat-balance">$0</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row-2">
+        <input type="number" id="amount" class="main-input" placeholder="輸入金額" min="1" />
+        <input type="date" id="date" class="main-input" />
+      </div>
+
+      <div class="type-selector">
+        <button class="type-btn active" data-type="expense" onclick="setType('expense')">支出</button>
+        <button class="type-btn" data-type="income" onclick="setType('income')">收入</button>
+      </div>
+
+      <div class="category-toolbar">
+        <div class="category-title">選擇分類</div>
+        <button class="btn-manage" onclick="openCategoryManager()">分類管理</button>
+      </div>
+
+      <div class="cat-grid" id="cat-grid"></div>
+
+      <input
+        type="text"
+        id="notes"
+        class="main-input"
+        placeholder="寫點備註吧（選填）"
+        style="margin-bottom:15px;"
+      />
+
+      <button class="btn-submit" id="submit-btn" onclick="submitRecord()">🌟 記下來！</button>
+      <button class="btn-insight" onclick="getMockInsight()">💡 呼叫理財精靈</button>
+    </div>
+
+    <div class="card">
+      <div style="font-weight:bold; margin-bottom:15px; color: var(--text2); font-size: 18px;">
+        📋 本月紀錄
+      </div>
+      <div id="rec-list"></div>
+    </div>
+  </div>
+
+  <div class="page" id="page-compare">
+    <div class="card">
+      <div class="compare-header">
+        <div class="compare-title">📊 自訂期間比較</div>
+        <div class="compare-subtitle" id="compare-subtitle">
+          可自行選擇月份或年份，比較收入、支出與分類變化。
+        </div>
+      </div>
+
+      <div class="compare-controls">
+        <div class="compare-mode">
+          <button class="compare-mode-btn active" id="mode-month-btn" onclick="setCompareMode('month')">月份比較</button>
+          <button class="compare-mode-btn" id="mode-year-btn" onclick="setCompareMode('year')">年度比較</button>
+        </div>
+
+        <div class="compare-periods" id="month-compare-controls">
+          <label>
+            比較期間 A
+            <input type="month" id="compare-current-month" onchange="renderComparePage()" />
+          </label>
+
+          <label>
+            比較期間 B
+            <input type="month" id="compare-previous-month" onchange="renderComparePage()" />
+          </label>
+        </div>
+
+        <div class="compare-periods hidden" id="year-compare-controls">
+          <label>
+            比較年份 A
+            <input type="number" id="compare-current-year" min="2000" max="2100" onchange="renderComparePage()" />
+          </label>
+
+          <label>
+            比較年份 B
+            <input type="number" id="compare-previous-year" min="2000" max="2100" onchange="renderComparePage()" />
+          </label>
+        </div>
+      </div>
+
+      <div class="compare-summary">
+        <div class="compare-card">
+          <div class="name">收入</div>
+          <div class="amount" id="cmp-income">$0</div>
+          <div class="delta neutral" id="cmp-income-delta">—</div>
+        </div>
+
+        <div class="compare-card">
+          <div class="name">支出</div>
+          <div class="amount" id="cmp-expense">$0</div>
+          <div class="delta neutral" id="cmp-expense-delta">—</div>
+        </div>
+
+        <div class="compare-card">
+          <div class="name">結餘</div>
+          <div class="amount" id="cmp-balance">$0</div>
+          <div class="delta neutral" id="cmp-balance-delta">—</div>
+        </div>
+      </div>
+
+      <div class="compare-type-tabs">
+        <button class="compare-type-btn active expense" id="compare-expense-btn" onclick="setCompareType('expense')">支出比較</button>
+        <button class="compare-type-btn" id="compare-income-btn" onclick="setCompareType('income')">收入比較</button>
+      </div>
+
+      <div class="compare-list" id="compare-list"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-overlay" id="category-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title">分類管理</div>
+      <div class="modal-subtitle">可以修改現有分類，也可以新增自己的圖案與文字。</div>
+    </div>
+
+    <div class="modal-body">
+      <div class="manage-list" id="manage-list"></div>
+
+      <div class="add-box">
+        <div class="add-title">新增分類</div>
+        <div class="add-desc">先選擇一個圖案，再輸入分類名稱，例如「下午茶」、「咖啡」、「甜點」。</div>
+
+        <div class="icon-picker" id="icon-picker"></div>
+
+        <div class="add-form">
+          <div class="selected-icon-preview" id="selected-icon-preview">✨</div>
+
+          <div class="add-input-group">
+            <input id="new-cat-label" placeholder="分類名稱，例如：下午茶" />
+            <button class="btn-add-cat" onclick="addCategory()">新增分類</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeCategoryManager()">關閉</button>
+      <button class="btn-confirm" onclick="saveCategoryManager()">儲存</button>
+    </div>
+  </div>
+</div>
+  <script src="./assets/js/config.js"></script>
+  <script src="./assets/js/utils.js"></script>
+  <script src="./assets/js/theme.js"></script>
+  <script src="./assets/js/categories.js"></script>
+  <script src="./assets/js/records.js"></script>
+  <script src="./assets/js/compare.js"></script>
+  <script src="./assets/js/app.js"></script>
+
+</body>
+</html>
