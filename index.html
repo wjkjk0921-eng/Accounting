@@ -1,0 +1,2299 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>錢錢日記</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #fff8f5;
+      --surface: #ffffff;
+      --surface2: #f9ebe5;
+      --border: #ecd0c5;
+      --text: #2f211d;
+      --text2: #7b574c;
+      --text3: #b48a7d;
+      --accent: #e9a18f;
+      --accent-bg: #fff0ea;
+      --accent-tx: #9c4f42;
+      --green: #6eb58a;
+      --green-bg: #edf8f2;
+      --green-tx: #2c7549;
+      --red: #e77b73;
+      --red-bg: #fae9e5;
+      --red-tx: #a8453d;
+      --shadow: 0 2px 14px rgba(130, 80, 60, 0.09);
+      --radius-sm: 10px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    body.theme-green {
+      --bg: #f2f9f5;
+      --surface2: #e3f2ea;
+      --border: #c8e6d6;
+      --text: #1a3324;
+      --text2: #366b4d;
+      --text3: #6e9e84;
+      --accent: #78c499;
+      --accent-bg: #e8f5ed;
+      --accent-tx: #1d663e;
+      --green: #5dba8c;
+      --green-tx: #1e7a4f;
+      --red: #e85d6a;
+      --red-bg: #fdedf0;
+      --red-tx: #b02030;
+    }
+
+    body.theme-milktea {
+      --bg: #fbf3e8;
+      --surface: #fffaf4;
+      --surface2: #f4dfc5;
+      --border: #dfc3a3;
+      --text: #352315;
+      --text2: #805f43;
+      --text3: #b79574;
+      --accent: #c99662;
+      --accent-bg: #f7e7d2;
+      --accent-tx: #7a4a24;
+      --green: #8ab17d;
+      --green-bg: #eef6e8;
+      --green-tx: #4f7a3f;
+      --red: #d88770;
+      --red-bg: #fae9e2;
+      --red-tx: #9c4a35;
+      --shadow: 0 2px 16px rgba(120, 78, 38, 0.13);
+    }
+
+    body.theme-cinnamoroll {
+      --bg: #f0f6fc;
+      --surface2: #e1ecf7;
+      --border: #cddff0;
+      --text: #1a2633;
+      --text2: #3b5c7a;
+      --text3: #7594b3;
+      --accent: #8fb8ed;
+      --accent-bg: #eaf2fb;
+      --accent-tx: #2a5788;
+      --green: #5dba8c;
+      --green-tx: #1e7a4f;
+      --red: #e85d6a;
+      --red-bg: #fdedf0;
+      --red-tx: #b02030;
+      --shadow: 0 2px 14px rgba(80, 120, 160, 0.10);
+    }
+
+    body.theme-kuromi {
+      --bg: #f8f4fb;
+      --surface2: #eee4f5;
+      --border: #d9c4e8;
+      --text: #261d2e;
+      --text2: #6f4a82;
+      --text3: #a683b7;
+      --accent: #a875c9;
+      --accent-bg: #f2e8fa;
+      --accent-tx: #663080;
+      --green: #5dba8c;
+      --green-tx: #1e7a4f;
+      --red: #e85d6a;
+      --red-bg: #fdedf0;
+      --red-tx: #b02030;
+    }
+
+    body.theme-dark {
+      --bg: #15151a;
+      --surface: #202029;
+      --surface2: #2a2a35;
+      --border: #3a3a48;
+      --text: #f3f0f7;
+      --text2: #c7bfd1;
+      --text3: #958aa3;
+      --accent: #8e7cc3;
+      --accent-bg: #322b46;
+      --accent-tx: #d7c9ff;
+      --green: #75b798;
+      --green-bg: #21382d;
+      --green-tx: #a6e6c6;
+      --red: #d87a86;
+      --red-bg: #42282d;
+      --red-tx: #ffb3bd;
+      --shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
+    }
+
+    body.theme-pompom {
+      --bg: #fffdf7;
+      --surface2: #fff6dc;
+      --border: #eadfbd;
+      --text: #30291c;
+      --text2: #756745;
+      --text3: #aa9b72;
+      --accent: #e3c675;
+      --accent-bg: #fff8df;
+      --accent-tx: #85671e;
+      --green: #78af7a;
+      --green-bg: #eff8ec;
+      --green-tx: #3d743e;
+      --red: #d9907d;
+      --red-bg: #faece7;
+      --red-tx: #9a5141;
+      --shadow: 0 2px 14px rgba(150, 125, 60, 0.09);
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px 16px 56px;
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
+      overscroll-behavior-x: none;
+      width: 100%;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+      max-width: 100%;
+      min-width: 0;
+      font: inherit;
+    }
+
+    input,
+    select,
+    textarea {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    button {
+      touch-action: manipulation;
+    }
+
+    img,
+    svg,
+    canvas {
+      max-width: 100%;
+    }
+
+    .cute-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .cute-sticker {
+      position: absolute;
+      width: 46px;
+      height: 46px;
+      border-radius: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      opacity: 0.62;
+      animation: floaty 5s ease-in-out infinite;
+    }
+
+    .cute-sticker.s1 { top: 92px; left: max(10px, calc(50% - 330px)); }
+    .cute-sticker.s2 { top: 190px; right: max(10px, calc(50% - 330px)); animation-delay: .5s; }
+    .cute-sticker.s3 { top: 420px; left: max(8px, calc(50% - 350px)); animation-delay: 1s; }
+    .cute-sticker.s4 { top: 560px; right: max(8px, calc(50% - 350px)); animation-delay: 1.5s; }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-10px) rotate(4deg); }
+    }
+
+    .app {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      color: var(--accent-tx);
+    }
+
+    .header p {
+      color: var(--text2);
+      font-size: 14px;
+    }
+
+    .theme-control {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .theme-selector {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 8px 15px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--text2);
+      outline: none;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      max-width: 260px;
+      text-align: center;
+    }
+
+    body.selector-top .theme-control { order: 1; }
+    body.selector-top .header h1 { order: 2; }
+    body.selector-top .header p { order: 3; }
+    body.selector-bottom .header h1 { order: 1; }
+    body.selector-bottom .header p { order: 2; }
+    body.selector-bottom .theme-control { order: 3; }
+
+    .page-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      background: var(--surface);
+      border-radius: 999px;
+      padding: 5px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+      gap: 5px;
+    }
+
+    .page-tab {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 8px;
+      background: transparent;
+      color: var(--text2);
+      font-weight: bold;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .page-tab.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .month-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--surface);
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow);
+      font-weight: bold;
+      color: var(--text2);
+    }
+
+    .month-nav button {
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--accent);
+      padding: 0 10px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      padding: 14px 12px;
+      text-align: center;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow);
+    }
+
+    .stat-card .lbl {
+      font-size: 12px;
+      color: var(--text3);
+      margin-bottom: 4px;
+    }
+
+    .stat-card .val {
+      font-size: 18px;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .stat-card.income .val { color: var(--green-tx); }
+    .stat-card.expense .val { color: var(--red-tx); }
+    .stat-card.balance .val { color: var(--accent-tx); }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, .55);
+    }
+
+    body.theme-dark .card {
+      border-color: rgba(255, 255, 255, .05);
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    input.main-input {
+      width: 100%;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-size: 16px;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input.main-input:focus {
+      border-color: var(--accent);
+      background: var(--surface);
+    }
+
+    .date-selectors {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .date-selectors select {
+      width: 100%;
+      padding: 12px 9px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-size: 16px;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .date-selectors select:focus {
+      border-color: var(--accent);
+      background: var(--surface);
+    }
+
+    .type-selector {
+      display: flex;
+      background: var(--surface2);
+      border-radius: var(--radius-sm);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    .type-btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      background: transparent;
+      color: var(--text2);
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .type-btn.active[data-type="expense"] {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .type-btn.active[data-type="income"] {
+      background: var(--green);
+      color: #fff;
+    }
+
+    .category-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .category-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--text2);
+    }
+
+    .btn-manage {
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--text2);
+      padding: 7px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px 8px;
+      margin-bottom: 16px;
+    }
+
+    .cat-btn {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--text2);
+      font-size: 12px;
+      text-align: center;
+      transition: .18s;
+    }
+
+    .cat-btn:hover { transform: translateY(-2px); }
+
+    .cat-circle {
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 5px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 2px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .45);
+      transition: .18s;
+    }
+
+    .cat-btn.active .cat-circle {
+      border-color: var(--accent);
+      background: var(--accent-bg);
+      transform: scale(1.05);
+    }
+
+    .cat-btn.active-income .cat-circle {
+      border-color: var(--green);
+      background: var(--green-bg);
+      transform: scale(1.05);
+    }
+
+    .cat-label {
+      max-width: 62px;
+      margin: 0 auto;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .btn-submit,
+    .btn-insight {
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 16px;
+      transition: 0.2s;
+      border: none;
+    }
+
+    .btn-submit {
+      background: var(--accent-bg);
+      border: 1px solid var(--accent);
+      color: var(--accent-tx);
+      margin-bottom: 10px;
+    }
+
+    .btn-insight {
+      background: #fff3cd;
+      border: 1px solid #ffeeba;
+      color: #856404;
+    }
+
+    body.theme-dark .btn-insight {
+      background: #3b3420;
+      border-color: #5b4f2d;
+      color: #f5d889;
+    }
+
+    .btn-submit:hover,
+    .btn-insight:hover {
+      filter: brightness(.97);
+      transform: translateY(-1px);
+    }
+
+    .rec-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      min-width: 0;
+    }
+
+    .rec-row:last-child { border-bottom: none; }
+
+    .rec-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .rec-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .rec-cat-name {
+      font-weight: bold;
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .rec-date-notes {
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 2px;
+      white-space: normal;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      overflow-wrap: anywhere;
+    }
+
+    .rec-amount {
+      max-width: 42%;
+      text-align: right;
+      overflow-wrap: anywhere;
+      font-weight: bold;
+      font-size: 16px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .rec-amount.expense { color: var(--red-tx); }
+    .rec-amount.income { color: var(--green-tx); }
+
+    .btn-del {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text3);
+      font-size: 18px;
+      padding: 4px 8px;
+      flex-shrink: 0;
+    }
+
+    .compare-header { margin-bottom: 14px; }
+
+    .compare-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--text2);
+      margin-bottom: 5px;
+    }
+
+    .compare-subtitle {
+      font-size: 12px;
+      color: var(--text3);
+      line-height: 1.5;
+    }
+
+    .compare-controls {
+      background: var(--surface2);
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    .compare-mode {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      background: var(--surface);
+      border-radius: 999px;
+      padding: 4px;
+      margin-bottom: 12px;
+      gap: 4px;
+    }
+
+    .compare-mode-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 9px;
+      background: transparent;
+      color: var(--text2);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .compare-mode-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .compare-periods {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .compare-periods.hidden { display: none; }
+
+    .compare-periods label {
+      font-size: 12px;
+      color: var(--text2);
+      font-weight: bold;
+    }
+
+    .compare-periods input {
+      width: 100%;
+      margin-top: 6px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+    }
+
+    .compare-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .compare-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 8px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .compare-card .name {
+      font-size: 12px;
+      color: var(--text3);
+      margin-bottom: 4px;
+    }
+
+    .compare-card .amount {
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--text);
+      margin-bottom: 3px;
+      overflow-wrap: anywhere;
+    }
+
+    .compare-card .delta {
+      font-size: 12px;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .delta.up { color: var(--red-tx); }
+    .delta.down { color: var(--green-tx); }
+    .delta.neutral { color: var(--text3); }
+
+    .compare-type-tabs {
+      display: flex;
+      background: var(--surface2);
+      border-radius: var(--radius-sm);
+      padding: 4px;
+      margin-bottom: 14px;
+      gap: 4px;
+    }
+
+    .compare-type-btn {
+      flex: 1;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      background: transparent;
+      color: var(--text2);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .compare-type-btn.active.expense {
+      background: var(--accent);
+      color: white;
+    }
+
+    .compare-type-btn.active.income {
+      background: var(--green);
+      color: white;
+    }
+
+    .compare-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .compare-row {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      min-width: 0;
+    }
+
+    .compare-row-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      min-width: 0;
+    }
+
+    .compare-cat {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+    }
+
+    .compare-cat-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+
+    .compare-cat-name {
+      font-weight: bold;
+      color: var(--text);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .compare-delta {
+      max-width: 42%;
+      text-align: right;
+      overflow-wrap: anywhere;
+      font-size: 13px;
+      font-weight: bold;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .compare-row-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .compare-mini {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 8px;
+      font-size: 12px;
+      color: var(--text2);
+      min-width: 0;
+    }
+
+    .compare-mini strong {
+      display: block;
+      font-size: 14px;
+      color: var(--text);
+      margin-top: 2px;
+      overflow-wrap: anywhere;
+    }
+
+    .bar-wrap {
+      height: 8px;
+      background: var(--surface2);
+      border-radius: 999px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .bar-current {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 999px;
+    }
+
+    .bar-current.income { background: var(--green); }
+
+    .compare-empty {
+      text-align: center;
+      color: var(--text3);
+      padding: 22px 10px;
+      line-height: 1.6;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s;
+      padding: 18px;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 460px;
+      max-height: 88vh;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      padding: 20px 22px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .modal-title {
+      font-size: 19px;
+      font-weight: bold;
+      color: var(--text);
+    }
+
+    .modal-subtitle {
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+
+    .modal-body {
+      padding: 18px 22px;
+      overflow: auto;
+    }
+
+    .manage-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .manage-row {
+      display: grid;
+      grid-template-columns: 48px 1fr 38px 38px 38px;
+      gap: 8px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .manage-row input {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+    }
+
+    .manage-icon-input {
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .mini-btn {
+      width: 38px;
+      min-height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface2);
+      color: var(--text2);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .mini-btn.danger {
+      background: var(--red-bg);
+      border-color: var(--red);
+      color: var(--red-tx);
+    }
+
+    .add-box {
+      background: var(--accent-bg);
+      border: 1px dashed var(--accent);
+      padding: 16px;
+      border-radius: 18px;
+    }
+
+    .add-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    .add-desc {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text2);
+      margin-bottom: 14px;
+    }
+
+    .icon-picker {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 9px;
+      margin-bottom: 16px;
+      max-height: 170px;
+      overflow-y: auto;
+      padding: 4px 2px 6px;
+    }
+
+    .icon-option {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: .15s;
+    }
+
+    .icon-option:hover {
+      transform: translateY(-1px);
+      background: var(--accent-bg);
+    }
+
+    .icon-option.active {
+      border-color: var(--accent);
+      background: var(--surface);
+      box-shadow: 0 0 0 3px var(--accent-bg);
+      transform: scale(1.06);
+    }
+
+    .add-form {
+      background: rgba(255, 255, 255, .55);
+      border: 1px solid rgba(255, 255, 255, .7);
+      border-radius: 16px;
+      padding: 12px;
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    body.theme-dark .add-form {
+      background: rgba(255, 255, 255, .04);
+      border-color: rgba(255, 255, 255, .07);
+    }
+
+    .selected-icon-preview {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      box-shadow: var(--shadow);
+    }
+
+    .add-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      min-width: 0;
+    }
+
+    .add-input-group input {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 12px;
+      background: var(--surface);
+      color: var(--text);
+      min-width: 0;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .btn-add-cat {
+      border: none;
+      border-radius: 10px;
+      background: var(--accent);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      height: 42px;
+      font-size: 14px;
+    }
+
+    .modal-actions {
+      padding: 14px 22px 20px;
+      display: flex;
+      gap: 10px;
+      border-top: 1px solid var(--border);
+      min-width: 0;
+    }
+
+    .btn-cancel,
+    .btn-confirm {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-cancel {
+      background: var(--surface2);
+      color: var(--text2);
+    }
+
+    .btn-confirm {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text2);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 20px;
+      opacity: 0;
+      transition: .25s;
+      pointer-events: none;
+      z-index: 3000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-20px);
+    }
+
+    @media (max-width: 600px) {
+      html,
+      body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        padding: 16px 12px 48px;
+      }
+
+      .cute-sticker {
+        display: none;
+      }
+
+      .app {
+        width: 100%;
+        max-width: 100%;
+        margin-inline: auto;
+        overflow-x: hidden;
+      }
+
+      .card,
+      .month-nav,
+      .stats,
+      .compare-controls,
+      .compare-summary,
+      .compare-list,
+      .compare-row,
+      .compare-periods,
+      .compare-row-detail {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      .row-2,
+      .stats,
+      .compare-summary,
+      .compare-periods,
+      .compare-row-detail {
+        grid-template-columns: 1fr;
+      }
+
+      .date-selectors {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .cat-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .compare-row-top {
+        align-items: flex-start;
+      }
+
+      .compare-cat-name {
+        max-width: 180px;
+      }
+
+      input[type="date"],
+      input[type="month"],
+      input[type="text"],
+      input[type="number"],
+      select {
+        width: 100%;
+      }
+
+      .toast {
+        width: calc(100% - 32px);
+        max-width: 360px;
+        text-align: center;
+        white-space: normal;
+      }
+
+      .modal-overlay {
+        padding: 12px;
+      }
+
+      .modal-content {
+        max-height: 90vh;
+      }
+
+      .modal-body {
+        padding: 16px;
+      }
+
+      .icon-picker {
+        grid-template-columns: repeat(6, 1fr);
+      }
+
+      .add-form {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+
+      .add-input-group {
+        width: 100%;
+      }
+
+      .modal-actions {
+        padding: 12px 16px 16px;
+      }
+
+      .manage-row {
+        grid-template-columns: 44px 1fr 36px 36px 36px;
+        gap: 6px;
+      }
+
+      .mini-btn {
+        width: 36px;
+        min-height: 36px;
+        padding: 0;
+      }
+    }
+
+    @media (max-width: 360px) {
+      body {
+        padding-inline: 10px;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      .cat-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .compare-cat-name {
+        max-width: 130px;
+      }
+
+      .rec-amount,
+      .compare-delta {
+        font-size: 14px;
+      }
+
+      .manage-row {
+        grid-template-columns: 40px 1fr;
+      }
+
+      .manage-row .mini-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cute-bg" aria-hidden="true">
+    <div class="cute-sticker s1">🎀</div>
+    <div class="cute-sticker s2">💗</div>
+    <div class="cute-sticker s3">✨</div>
+    <div class="cute-sticker s4">🍑</div>
+  </div>
+
+  <div class="app">
+    <div class="header">
+      <div class="theme-control">
+        <select class="theme-selector" id="theme-select" onchange="changeTheme(this.value)" aria-label="選擇主題">
+          <option value="pink">🍑 蜜桃粉</option>
+          <option value="green">🍵 抹茶綠</option>
+          <option value="milktea">🧋 奶茶風</option>
+          <option value="cinnamoroll">☁️ 藍白風</option>
+          <option value="kuromi">🖤 紫黑風</option>
+          <option value="dark">🌙 暗黑風</option>
+          <option value="pompom">🍮 奶黃風</option>
+        </select>
+      </div>
+
+      <h1>✨ 錢錢日記</h1>
+      <p>記下每一筆，讓金錢流動更清晰</p>
+    </div>
+
+    <div class="page-tabs">
+      <button type="button" class="page-tab active" id="tab-record" onclick="switchPage('record')">記帳</button>
+      <button type="button" class="page-tab" id="tab-compare" onclick="switchPage('compare')">比較分析</button>
+    </div>
+
+    <div class="month-nav">
+      <button type="button" id="month-prev-btn" aria-label="上一個月">&#8249;</button>
+      <span id="month-label"></span>
+      <button type="button" id="month-next-btn" aria-label="下一個月">&#8250;</button>
+    </div>
+
+    <div class="page active" id="page-record">
+      <div class="stats">
+        <div class="stat-card income"><div class="lbl">收入</div><div class="val" id="stat-income">$0</div></div>
+        <div class="stat-card expense"><div class="lbl">支出</div><div class="val" id="stat-expense">$0</div></div>
+        <div class="stat-card balance"><div class="lbl">結餘</div><div class="val" id="stat-balance">$0</div></div>
+      </div>
+
+      <div class="card">
+        <div class="row-2">
+          <input type="text" id="amount" class="main-input amount-input ios-safe-input" inputmode="numeric" pattern="[0-9]*" placeholder="輸入金額" autocomplete="off" aria-label="輸入金額" />
+          <div class="date-selectors" aria-label="記帳日期">
+            <select id="date-year" aria-label="記帳年份"></select>
+            <select id="date-month" aria-label="記帳月份"></select>
+            <select id="date-day" aria-label="記帳日期"></select>
+          </div>
+        </div>
+
+        <div class="type-selector">
+          <button type="button" class="type-btn active" data-type="expense" onclick="setType('expense')">支出</button>
+          <button type="button" class="type-btn" data-type="income" onclick="setType('income')">收入</button>
+        </div>
+
+        <div class="category-toolbar">
+          <div class="category-title">選擇分類</div>
+          <button type="button" class="btn-manage" onclick="openCategoryManager()">分類管理</button>
+        </div>
+
+        <div class="cat-grid" id="cat-grid"></div>
+
+        <input type="text" id="notes" class="main-input ios-safe-input" placeholder="寫點備註吧（選填）" autocomplete="off" aria-label="備註" style="margin-bottom:15px;" />
+
+        <button type="button" class="btn-submit" id="submit-btn" onclick="submitRecord()">🌟 記下來！</button>
+        <button type="button" class="btn-insight" onclick="getMockInsight()">💡 呼叫理財精靈</button>
+      </div>
+
+      <div class="card">
+        <div style="font-weight:bold; margin-bottom:15px; color: var(--text2); font-size: 18px;">📋 本月紀錄</div>
+        <div id="rec-list"></div>
+      </div>
+    </div>
+
+    <div class="page" id="page-compare">
+      <div class="card">
+        <div class="compare-header">
+          <div class="compare-title">📊 自訂期間比較</div>
+          <div class="compare-subtitle" id="compare-subtitle">可自行選擇月份或年份，比較收入、支出與分類變化。</div>
+        </div>
+
+        <div class="compare-controls">
+          <div class="compare-mode">
+            <button type="button" class="compare-mode-btn active" id="mode-month-btn" onclick="setCompareMode('month')">月份比較</button>
+            <button type="button" class="compare-mode-btn" id="mode-year-btn" onclick="setCompareMode('year')">年度比較</button>
+          </div>
+
+          <div class="compare-periods" id="month-compare-controls">
+            <label>比較期間 A
+              <input type="text" id="compare-current-month" class="month-input ios-safe-input" inputmode="numeric" pattern="[0-9]{4}-[0-9]{2}" maxlength="7" placeholder="YYYY-MM" autocomplete="off" aria-label="比較期間A，格式為YYYY-MM" onchange="renderComparePage()" />
+            </label>
+            <label>比較期間 B
+              <input type="text" id="compare-previous-month" class="month-input ios-safe-input" inputmode="numeric" pattern="[0-9]{4}-[0-9]{2}" maxlength="7" placeholder="YYYY-MM" autocomplete="off" aria-label="比較期間B，格式為YYYY-MM" onchange="renderComparePage()" />
+            </label>
+          </div>
+
+          <div class="compare-periods hidden" id="year-compare-controls">
+            <label>比較年份 A
+              <input type="text" id="compare-current-year" class="year-input ios-safe-input" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="YYYY" autocomplete="off" aria-label="比較年份A，格式為YYYY" onchange="renderComparePage()" />
+            </label>
+            <label>比較年份 B
+              <input type="text" id="compare-previous-year" class="year-input ios-safe-input" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="YYYY" autocomplete="off" aria-label="比較年份B，格式為YYYY" onchange="renderComparePage()" />
+            </label>
+          </div>
+        </div>
+
+        <div class="compare-summary">
+          <div class="compare-card"><div class="name">收入</div><div class="amount" id="cmp-income">$0</div><div class="delta neutral" id="cmp-income-delta">—</div></div>
+          <div class="compare-card"><div class="name">支出</div><div class="amount" id="cmp-expense">$0</div><div class="delta neutral" id="cmp-expense-delta">—</div></div>
+          <div class="compare-card"><div class="name">結餘</div><div class="amount" id="cmp-balance">$0</div><div class="delta neutral" id="cmp-balance-delta">—</div></div>
+        </div>
+
+        <div class="compare-type-tabs">
+          <button type="button" class="compare-type-btn active expense" id="compare-expense-btn" onclick="setCompareType('expense')">支出比較</button>
+          <button type="button" class="compare-type-btn" id="compare-income-btn" onclick="setCompareType('income')">收入比較</button>
+        </div>
+
+        <div class="compare-list" id="compare-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="modal-overlay" id="category-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">分類管理</div>
+        <div class="modal-subtitle">可以修改現有分類，也可以新增自己的圖案與文字。</div>
+      </div>
+
+      <div class="modal-body">
+        <div class="manage-list" id="manage-list"></div>
+
+        <div class="add-box">
+          <div class="add-title">新增分類</div>
+          <div class="add-desc">先選擇一個圖案，再輸入分類名稱，例如「下午茶」、「咖啡」、「甜點」。</div>
+          <div class="icon-picker" id="icon-picker"></div>
+
+          <div class="add-form">
+            <div class="selected-icon-preview" id="selected-icon-preview">✨</div>
+            <div class="add-input-group">
+              <input id="new-cat-label" class="ios-safe-input" placeholder="分類名稱，例如：下午茶" autocomplete="off" aria-label="新增分類名稱" />
+              <button type="button" class="btn-add-cat" onclick="addCategory()">新增分類</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeCategoryManager()">關閉</button>
+        <button type="button" class="btn-confirm" onclick="saveCategoryManager()">儲存</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const THEME_SELECTOR_POSITION = 'top';
+    const THEME_VALUES = ['pink', 'green', 'milktea', 'cinnamoroll', 'kuromi', 'dark', 'pompom'];
+    const DEFAULT_CATS = [
+      { id: 'food', label: '餐飲', icon: '🍜', type: 'expense' },
+      { id: 'drink', label: '飲品', icon: '🧋', type: 'expense' },
+      { id: 'transport', label: '交通', icon: '🚇', type: 'expense' },
+      { id: 'shop', label: '購物', icon: '🎁', type: 'expense' },
+      { id: 'fun', label: '娛樂', icon: '🎠', type: 'expense' },
+      { id: 'home', label: '居家', icon: '🛋️', type: 'expense' },
+      { id: 'health', label: '健康', icon: '🌿', type: 'expense' },
+      { id: 'beauty', label: '美妝', icon: '💄', type: 'expense' },
+      { id: 'pet', label: '寵物', icon: '🐾', type: 'expense' },
+      { id: 'study', label: '學習', icon: '📚', type: 'expense' },
+      { id: 'travel', label: '旅行', icon: '✈️', type: 'expense' },
+      { id: 'gift', label: '送禮', icon: '🎀', type: 'expense' },
+      { id: 'other_exp', label: '其他', icon: '✨', type: 'expense' },
+      { id: 'salary', label: '薪資', icon: '💼', type: 'income' },
+      { id: 'bonus', label: '獎金', icon: '🧧', type: 'income' },
+      { id: 'invest', label: '投資', icon: '📈', type: 'income' },
+      { id: 'pocket', label: '零用錢', icon: '👛', type: 'income' },
+      { id: 'refund', label: '退款', icon: '↩️', type: 'income' },
+      { id: 'other_inc', label: '其他', icon: '✨', type: 'income' }
+    ];
+    const ICON_OPTIONS = [
+      '🍜', '🍱', '🍛', '🍔', '🍟', '🧋', '☕', '🍵', '🍰', '🧁',
+      '🍪', '🍮', '🍓', '🍫', '🥐', '🍎', '🍇', '🍉', '🥗', '🍙',
+      '🚇', '🚌', '🚕', '🚗', '🛵', '🚲', '🚄', '✈️', '🧳', '⛽',
+      '🎁', '🛍️', '👗', '👟', '💄', '📱', '💻', '⌚', '🎧', '🧸',
+      '🎠', '🎬', '🎮', '🎤', '🎵', '🎨', '📷', '🏀', '⚽', '🎯',
+      '🏠', '🛋️', '💡', '🧺', '🛒', '🧻', '🧼', '🪴', '🔧', '📦',
+      '🌿', '💊', '🏥', '💪', '🧘', '🦷', '👓', '😴', '💆', '🧴',
+      '🐾', '🐶', '🐱', '🐰', '🐹', '📚', '📝', '📖', '💼', '🧧',
+      '📈', '👛', '↩️', '💰', '🏦', '🍑', '✨', '🎀', '🤎', '💗',
+      '⭐', '☁️', '🌙', '🖤', '💜', '💛', '🫧', '🌊', '🍮', '🍯'
+    ];
+
+    let selectedNewIcon = '✨';
+    let categories = [];
+    let editingCategories = [];
+    let records = [];
+    let currentMonth = getCurrentMonth();
+    let currentType = 'expense';
+    let selectedCat = null;
+    let currentPage = 'record';
+    let compareType = 'expense';
+    let compareMode = 'month';
+
+    function uid() {
+      return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    }
+
+    function money(n) {
+      return '$' + Number(n || 0).toLocaleString();
+    }
+
+    function pad2(value) {
+      return String(value).padStart(2, '0');
+    }
+
+    function formatLocalDate(date) {
+      return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}`;
+    }
+
+    function getCurrentMonth() {
+      const today = new Date();
+      return `${today.getFullYear()}-${pad2(today.getMonth() + 1)}`;
+    }
+
+    function getTodayDate() {
+      return formatLocalDate(new Date());
+    }
+
+    function addMonths(monthStr, diff) {
+      if (!isValidMonthString(monthStr)) return getCurrentMonth();
+      const [year, month] = monthStr.split('-').map(Number);
+      const date = new Date(year, month - 1 + diff, 1);
+      return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}`;
+    }
+
+    function isValidMonthString(value) {
+      if (!/^\d{4}-\d{2}$/.test(String(value || ''))) return false;
+      const [, month] = value.split('-').map(Number);
+      return month >= 1 && month <= 12;
+    }
+
+    function isValidDateString(value) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(String(value || ''))) return false;
+      const [year, month, day] = value.split('-').map(Number);
+      const date = new Date(year, month - 1, day);
+      return date.getFullYear() === year
+        && date.getMonth() === month - 1
+        && date.getDate() === day;
+    }
+
+    function isValidYearString(value) {
+      return /^\d{4}$/.test(String(value || ''));
+    }
+
+    function getPreviousMonth(monthStr) {
+      return addMonths(monthStr, -1);
+    }
+
+    function getMonthText(monthStr) {
+      return isValidMonthString(monthStr) ? monthStr.replace('-', ' 年 ') + ' 月' : '月份格式錯誤';
+    }
+
+    function getDaysInMonth(year, month) {
+      return new Date(Number(year), Number(month), 0).getDate();
+    }
+
+    function populateDateSelects() {
+      const yearSelect = document.getElementById('date-year');
+      const monthSelect = document.getElementById('date-month');
+      const currentYear = new Date().getFullYear();
+      const startYear = currentYear - 10;
+      const endYear = currentYear + 2;
+
+      yearSelect.innerHTML = '';
+      for (let year = endYear; year >= startYear; year -= 1) {
+        yearSelect.add(new Option(`${year} 年`, String(year)));
+      }
+
+      monthSelect.innerHTML = '';
+      for (let month = 1; month <= 12; month += 1) {
+        monthSelect.add(new Option(`${month} 月`, pad2(month)));
+      }
+
+      yearSelect.addEventListener('change', updateDayOptions);
+      monthSelect.addEventListener('change', updateDayOptions);
+    }
+
+    function updateDayOptions() {
+      const year = document.getElementById('date-year').value;
+      const month = document.getElementById('date-month').value;
+      const daySelect = document.getElementById('date-day');
+      const previousDay = Number(daySelect.value || 1);
+      const totalDays = getDaysInMonth(year, month);
+
+      daySelect.innerHTML = '';
+      for (let day = 1; day <= totalDays; day += 1) {
+        daySelect.add(new Option(`${day} 日`, pad2(day)));
+      }
+
+      daySelect.value = pad2(Math.min(previousDay, totalDays));
+    }
+
+    function setDateSelects(dateString) {
+      const safeDate = isValidDateString(dateString) ? dateString : getTodayDate();
+      const [year, month, day] = safeDate.split('-');
+
+      document.getElementById('date-year').value = year;
+      document.getElementById('date-month').value = month;
+      updateDayOptions();
+      document.getElementById('date-day').value = day;
+    }
+
+    function getSelectedDate() {
+      const year = document.getElementById('date-year').value;
+      const month = document.getElementById('date-month').value;
+      const day = document.getElementById('date-day').value;
+      return `${year}-${month}-${day}`;
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => {
+        el.classList.remove('show');
+      }, 2200);
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function loadCategories() {
+      const data = localStorage.getItem('healing_categories');
+      if (data) {
+        try {
+          const parsed = JSON.parse(data);
+          categories = Array.isArray(parsed) ? parsed : [...DEFAULT_CATS];
+        } catch (error) {
+          categories = [...DEFAULT_CATS];
+          localStorage.removeItem('healing_categories');
+        }
+      } else {
+        categories = [...DEFAULT_CATS];
+      }
+    }
+
+    function saveCategories() {
+      localStorage.setItem('healing_categories', JSON.stringify(categories));
+    }
+
+    function setType(type) {
+      currentType = type === 'income' ? 'income' : 'expense';
+      selectedCat = null;
+      document.querySelectorAll('.type-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.type === currentType);
+      });
+      updateButtonStyle();
+      renderCats();
+    }
+
+    function renderCats() {
+      const catGrid = document.getElementById('cat-grid');
+      const filtered = categories.filter(c => c.type === currentType);
+
+      if (filtered.length === 0) {
+        catGrid.innerHTML = `
+          <button type="button" class="cat-btn" onclick="openCategoryManager()">
+            <div class="cat-circle">＋</div>
+            <div class="cat-label">新增</div>
+          </button>
+        `;
+        return;
+      }
+
+      catGrid.innerHTML = filtered.map(c => {
+        const on = selectedCat === c.id;
+        const cls = on ? (c.type === 'income' ? ' active-income' : ' active') : '';
+        return `
+          <button type="button" class="cat-btn${cls}" onclick="selectCategory('${escapeHtml(c.id)}')">
+            <div class="cat-circle">${escapeHtml(c.icon)}</div>
+            <div class="cat-label">${escapeHtml(c.label)}</div>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectCategory(id) {
+      selectedCat = id;
+      renderCats();
+    }
+
+    function openCategoryManager() {
+      editingCategories = JSON.parse(JSON.stringify(categories));
+      selectedNewIcon = '✨';
+      renderManageList();
+      renderIconPicker();
+      document.getElementById('category-modal').classList.add('show');
+    }
+
+    function closeCategoryManager() {
+      document.getElementById('category-modal').classList.remove('show');
+    }
+
+    function renderManageList() {
+      const list = document.getElementById('manage-list');
+      const filtered = editingCategories.filter(c => c.type === currentType);
+
+      if (filtered.length === 0) {
+        list.innerHTML = '<div style="text-align:center; color:var(--text3); padding:14px;">目前沒有分類，請新增一個分類。</div>';
+        return;
+      }
+
+      list.innerHTML = filtered.map(cat => `
+        <div class="manage-row">
+          <input class="manage-icon-input" value="${escapeHtml(cat.icon)}" maxlength="4" onchange="updateEditingCategory('${escapeHtml(cat.id)}', 'icon', this.value)" aria-label="分類圖案" />
+          <input value="${escapeHtml(cat.label)}" onchange="updateEditingCategory('${escapeHtml(cat.id)}', 'label', this.value)" aria-label="分類名稱" />
+          <button type="button" class="mini-btn" onclick="moveCategory('${escapeHtml(cat.id)}', -1)" aria-label="上移">↑</button>
+          <button type="button" class="mini-btn" onclick="moveCategory('${escapeHtml(cat.id)}', 1)" aria-label="下移">↓</button>
+          <button type="button" class="mini-btn danger" onclick="deleteCategory('${escapeHtml(cat.id)}')" aria-label="刪除">×</button>
+        </div>
+      `).join('');
+    }
+
+    function renderIconPicker() {
+      const picker = document.getElementById('icon-picker');
+      const preview = document.getElementById('selected-icon-preview');
+      if (!picker || !preview) return;
+
+      picker.innerHTML = ICON_OPTIONS.map(icon => {
+        const activeClass = icon === selectedNewIcon ? ' active' : '';
+        return `
+          <button type="button" class="icon-option${activeClass}" onclick="selectNewIcon('${escapeHtml(icon)}')" aria-label="選擇 ${escapeHtml(icon)}">
+            ${escapeHtml(icon)}
+          </button>
+        `;
+      }).join('');
+      preview.textContent = selectedNewIcon;
+    }
+
+    function selectNewIcon(icon) {
+      selectedNewIcon = icon;
+      renderIconPicker();
+    }
+
+    function updateEditingCategory(id, field, value) {
+      const target = editingCategories.find(c => c.id === id);
+      if (!target) return;
+
+      const cleanValue = value.trim();
+      if (field === 'label' && !cleanValue) {
+        showToast('分類名稱不可空白');
+        renderManageList();
+        return;
+      }
+
+      if (field === 'icon' && !cleanValue) {
+        showToast('分類圖案不可空白');
+        renderManageList();
+        return;
+      }
+
+      target[field] = cleanValue;
+    }
+
+    function moveCategory(id, direction) {
+      const sameType = editingCategories.filter(c => c.type === currentType);
+      const currentInSameTypeIndex = sameType.findIndex(c => c.id === id);
+      if (currentInSameTypeIndex < 0) return;
+
+      const targetInSameTypeIndex = currentInSameTypeIndex + direction;
+      if (targetInSameTypeIndex < 0 || targetInSameTypeIndex >= sameType.length) return;
+
+      const currentCat = sameType[currentInSameTypeIndex];
+      const targetCat = sameType[targetInSameTypeIndex];
+      const currentGlobalIndex = editingCategories.findIndex(c => c.id === currentCat.id);
+      const targetGlobalIndex = editingCategories.findIndex(c => c.id === targetCat.id);
+
+      [editingCategories[currentGlobalIndex], editingCategories[targetGlobalIndex]] =
+        [editingCategories[targetGlobalIndex], editingCategories[currentGlobalIndex]];
+      renderManageList();
+    }
+
+    function deleteCategory(id) {
+      const used = records.some(r => r.catId === id);
+      if (used && !confirm('這個分類已有記帳紀錄。刪除後，舊紀錄仍會保留原本名稱與圖案。確定刪除嗎？')) {
+        return;
+      }
+
+      editingCategories = editingCategories.filter(c => c.id !== id);
+      if (selectedCat === id) selectedCat = null;
+      renderManageList();
+    }
+
+    function addCategory() {
+      const labelInput = document.getElementById('new-cat-label');
+      const icon = selectedNewIcon || '✨';
+      const label = labelInput.value.trim();
+
+      if (!label) {
+        showToast('請輸入分類名稱');
+        return;
+      }
+
+      editingCategories.push({
+        id: 'cat_' + uid(),
+        label,
+        icon,
+        type: currentType
+      });
+
+      selectedNewIcon = '✨';
+      labelInput.value = '';
+      renderManageList();
+      renderIconPicker();
+    }
+
+    function saveCategoryManager() {
+      const invalid = editingCategories.some(c => !String(c.label || '').trim() || !String(c.icon || '').trim());
+      if (invalid) {
+        showToast('分類圖案與名稱不可空白');
+        return;
+      }
+
+      categories = JSON.parse(JSON.stringify(editingCategories));
+      saveCategories();
+      if (selectedCat && !categories.some(c => c.id === selectedCat)) selectedCat = null;
+      renderCats();
+      renderComparePage();
+      closeCategoryManager();
+      showToast('分類設定已儲存');
+    }
+
+    function loadRecords() {
+      const data = localStorage.getItem('healing_records');
+      if (data) {
+        try {
+          const parsed = JSON.parse(data);
+          records = Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          records = [];
+          localStorage.removeItem('healing_records');
+        }
+      }
+      renderPage();
+    }
+
+    function saveRecords() {
+      localStorage.setItem('healing_records', JSON.stringify(records));
+    }
+
+    function submitRecord() {
+      const amtVal = document.getElementById('amount').value.replaceAll(',', '').trim();
+      const date = getSelectedDate();
+      const notes = document.getElementById('notes').value.trim();
+      const amount = Math.round(Number(amtVal));
+
+      if (!amtVal || !Number.isFinite(amount) || amount <= 0) {
+        showToast('⚠️ 請輸入有效的金額');
+        return;
+      }
+
+      if (!isValidDateString(date)) {
+        showToast('⚠️ 請輸入正確日期，例如 2026-05-24');
+        return;
+      }
+
+      if (!selectedCat) {
+        showToast('⚠️ 請選擇分類');
+        return;
+      }
+
+      const cat = categories.find(c => c.id === selectedCat);
+      if (!cat) {
+        showToast('⚠️ 分類不存在，請重新選擇');
+        selectedCat = null;
+        renderCats();
+        return;
+      }
+
+      records.push({
+        id: uid(),
+        catId: cat.id,
+        type: currentType,
+        amount,
+        date,
+        notes,
+        icon: cat.icon,
+        label: cat.label
+      });
+
+      saveRecords();
+      document.getElementById('amount').value = '';
+      document.getElementById('notes').value = '';
+      currentMonth = date.slice(0, 7);
+      selectedCat = null;
+      renderCats();
+      renderPage();
+      showToast(`${cat.icon} ${cat.label} 已記錄！`);
+    }
+
+    function delRecord(id) {
+      records = records.filter(r => r.id !== id);
+      saveRecords();
+      renderPage();
+      showToast('🗑️ 已刪除紀錄');
+    }
+
+    function changeMonth(d) {
+      currentMonth = addMonths(currentMonth, d);
+      document.getElementById('compare-current-month').value = currentMonth;
+      document.getElementById('compare-previous-month').value = getPreviousMonth(currentMonth);
+      renderPage();
+    }
+
+    function getMonthRecords(month) {
+      return records.filter(r => r.date && r.date.slice(0, 7) === month);
+    }
+
+    function getYearRecords(year) {
+      return records.filter(r => r.date && r.date.slice(0, 4) === String(year));
+    }
+
+    function getPeriodRecords(periodValue, mode) {
+      return mode === 'year' ? getYearRecords(periodValue) : getMonthRecords(periodValue);
+    }
+
+    function getPeriodTotal(periodValue, mode, type) {
+      return getPeriodRecords(periodValue, mode)
+        .filter(r => r.type === type)
+        .reduce((sum, r) => sum + Number(r.amount || 0), 0);
+    }
+
+    function getPeriodCategoryTotals(periodValue, mode, type) {
+      const map = {};
+      getPeriodRecords(periodValue, mode)
+        .filter(r => r.type === type)
+        .forEach(r => {
+          const id = r.catId || 'unknown';
+          if (!map[id]) {
+            map[id] = {
+              id,
+              label: r.label || '其他',
+              icon: r.icon || '✨',
+              amount: 0
+            };
+          }
+          map[id].amount += Number(r.amount || 0);
+        });
+      return map;
+    }
+
+    function applyLayoutSettings() {
+      document.body.classList.remove('selector-top', 'selector-bottom');
+      document.body.classList.add(THEME_SELECTOR_POSITION === 'bottom' ? 'selector-bottom' : 'selector-top');
+    }
+
+    function changeTheme(themeName) {
+      document.body.classList.remove('theme-green', 'theme-milktea', 'theme-cinnamoroll', 'theme-kuromi', 'theme-dark', 'theme-pompom');
+      const themeMap = {
+        green: 'theme-green',
+        milktea: 'theme-milktea',
+        cinnamoroll: 'theme-cinnamoroll',
+        kuromi: 'theme-kuromi',
+        dark: 'theme-dark',
+        pompom: 'theme-pompom'
+      };
+
+      if (themeMap[themeName]) document.body.classList.add(themeMap[themeName]);
+      updateCuteStickers(themeName);
+      localStorage.setItem('healing_theme', THEME_VALUES.includes(themeName) ? themeName : 'pink');
+      updateButtonStyle();
+      applyLayoutSettings();
+    }
+
+    function updateCuteStickers(themeName) {
+      const stickers = document.querySelectorAll('.cute-sticker');
+      const stickerSets = {
+        pink: ['🎀', '💗', '✨', '🍑'],
+        green: ['🍵', '🌿', '🍀', '🤍'],
+        milktea: ['🧋', '🍪', '🍮', '🤎'],
+        cinnamoroll: ['☁️', '🫧', '⭐', '🤍'],
+        kuromi: ['🖤', '💜', '🌙', '✨'],
+        dark: ['🌙', '🖤', '✨', '⭐'],
+        pompom: ['🍮', '💛', '🍯', '☁️']
+      };
+      const selectedSet = stickerSets[themeName] || stickerSets.pink;
+      stickers.forEach((el, index) => {
+        el.textContent = selectedSet[index % selectedSet.length];
+      });
+    }
+
+    function loadTheme() {
+      let savedTheme = localStorage.getItem('healing_theme') || 'pink';
+      if (!THEME_VALUES.includes(savedTheme)) {
+        savedTheme = 'pink';
+        localStorage.setItem('healing_theme', 'pink');
+      }
+      document.getElementById('theme-select').value = savedTheme;
+      changeTheme(savedTheme);
+    }
+
+    function updateButtonStyle() {
+      const submitBtn = document.getElementById('submit-btn');
+      if (!submitBtn) return;
+
+      if (currentType === 'income') {
+        submitBtn.style.background = 'var(--green-bg)';
+        submitBtn.style.color = 'var(--green-tx)';
+        submitBtn.style.borderColor = 'var(--green)';
+      } else {
+        submitBtn.style.background = 'var(--accent-bg)';
+        submitBtn.style.color = 'var(--accent-tx)';
+        submitBtn.style.borderColor = 'var(--accent)';
+      }
+    }
+
+    function initCompareControls() {
+      const previousMonth = getPreviousMonth(currentMonth);
+      const currentYear = new Date().getFullYear();
+      document.getElementById('compare-current-month').value = currentMonth;
+      document.getElementById('compare-previous-month').value = previousMonth;
+      document.getElementById('compare-current-year').value = currentYear;
+      document.getElementById('compare-previous-year').value = currentYear - 1;
+    }
+
+    function switchPage(page) {
+      currentPage = page === 'compare' ? 'compare' : 'record';
+      document.getElementById('page-record').classList.toggle('active', currentPage === 'record');
+      document.getElementById('page-compare').classList.toggle('active', currentPage === 'compare');
+      document.getElementById('tab-record').classList.toggle('active', currentPage === 'record');
+      document.getElementById('tab-compare').classList.toggle('active', currentPage === 'compare');
+      renderPage();
+    }
+
+    function setCompareMode(mode) {
+      compareMode = mode === 'year' ? 'year' : 'month';
+      document.getElementById('mode-month-btn').classList.toggle('active', compareMode === 'month');
+      document.getElementById('mode-year-btn').classList.toggle('active', compareMode === 'year');
+      document.getElementById('month-compare-controls').classList.toggle('hidden', compareMode !== 'month');
+      document.getElementById('year-compare-controls').classList.toggle('hidden', compareMode !== 'year');
+      renderComparePage();
+    }
+
+    function setCompareType(type) {
+      compareType = type === 'income' ? 'income' : 'expense';
+      document.getElementById('compare-expense-btn').classList.toggle('active', compareType === 'expense');
+      document.getElementById('compare-expense-btn').classList.toggle('expense', compareType === 'expense');
+      document.getElementById('compare-income-btn').classList.toggle('active', compareType === 'income');
+      document.getElementById('compare-income-btn').classList.toggle('income', compareType === 'income');
+      renderComparePage();
+    }
+
+    function getDeltaText(current, previous) {
+      const diff = current - previous;
+      if (diff === 0) return { text: '持平', cls: 'neutral' };
+
+      const sign = diff > 0 ? '+' : '-';
+      const abs = Math.abs(diff);
+      if (previous === 0) {
+        return { text: `${sign}${money(abs)}｜新增`, cls: diff > 0 ? 'up' : 'down' };
+      }
+
+      const percent = Math.round((abs / Math.abs(previous)) * 100);
+      return { text: `${sign}${money(abs)}｜${percent}%`, cls: diff > 0 ? 'up' : 'down' };
+    }
+
+    function isValidComparePeriod(value) {
+      return compareMode === 'year' ? isValidYearString(value) : isValidMonthString(value);
+    }
+
+    function renderPage() {
+      document.getElementById('month-label').textContent = getMonthText(currentMonth);
+      renderRecordPage();
+      renderComparePage();
+    }
+
+    function renderRecordPage() {
+      const monthRecords = getMonthRecords(currentMonth).sort((a, b) => new Date(b.date) - new Date(a.date));
+      const inc = monthRecords.filter(r => r.type === 'income').reduce((s, r) => s + Number(r.amount || 0), 0);
+      const exp = monthRecords.filter(r => r.type === 'expense').reduce((s, r) => s + Number(r.amount || 0), 0);
+
+      document.getElementById('stat-income').textContent = money(inc);
+      document.getElementById('stat-expense').textContent = money(exp);
+      document.getElementById('stat-balance').textContent = money(inc - exp);
+
+      const listEl = document.getElementById('rec-list');
+      if (monthRecords.length === 0) {
+        listEl.innerHTML = '<div style="text-align:center; padding:20px; color:var(--text3);">這個月還沒有紀錄喔，快來記下第一筆吧！✨</div>';
+        return;
+      }
+
+      listEl.innerHTML = monthRecords.map(r => {
+        const sign = r.type === 'income' ? '+' : '-';
+        const amountClass = r.type === 'income' ? 'income' : 'expense';
+        return `
+          <div class="rec-row">
+            <div class="rec-icon">${escapeHtml(r.icon || '✨')}</div>
+            <div class="rec-info">
+              <div class="rec-cat-name">${escapeHtml(r.label || '其他')}</div>
+              <div class="rec-date-notes">${escapeHtml(r.date)} ${r.notes ? '｜' + escapeHtml(r.notes) : ''}</div>
+            </div>
+            <div class="rec-amount ${amountClass}">${sign}${money(r.amount)}</div>
+            <button type="button" class="btn-del" onclick="delRecord('${escapeHtml(r.id)}')" aria-label="刪除紀錄">✕</button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderComparePage() {
+      const currentPeriod = compareMode === 'year'
+        ? document.getElementById('compare-current-year').value.trim()
+        : document.getElementById('compare-current-month').value.trim();
+      const previousPeriod = compareMode === 'year'
+        ? document.getElementById('compare-previous-year').value.trim()
+        : document.getElementById('compare-previous-month').value.trim();
+
+      if (!currentPeriod || !previousPeriod) return;
+
+      if (!isValidComparePeriod(currentPeriod) || !isValidComparePeriod(previousPeriod)) {
+        document.getElementById('compare-subtitle').textContent =
+          compareMode === 'year' ? '請輸入正確年份，格式為 YYYY。' : '請輸入正確月份，格式為 YYYY-MM。';
+
+        ['cmp-income', 'cmp-expense', 'cmp-balance'].forEach(id => {
+          document.getElementById(id).textContent = money(0);
+        });
+        ['cmp-income-delta', 'cmp-expense-delta', 'cmp-balance-delta'].forEach(id => {
+          const el = document.getElementById(id);
+          el.textContent = '—';
+          el.className = 'delta neutral';
+        });
+        document.getElementById('compare-list').innerHTML = '<div class="compare-empty">請確認期間格式後再比較。</div>';
+        return;
+      }
+
+      const currentText = compareMode === 'year' ? `${currentPeriod} 年` : getMonthText(currentPeriod);
+      const previousText = compareMode === 'year' ? `${previousPeriod} 年` : getMonthText(previousPeriod);
+      document.getElementById('compare-subtitle').textContent = `${currentText} 與 ${previousText} 的金額變化`;
+
+      const currentIncome = getPeriodTotal(currentPeriod, compareMode, 'income');
+      const previousIncome = getPeriodTotal(previousPeriod, compareMode, 'income');
+      const currentExpense = getPeriodTotal(currentPeriod, compareMode, 'expense');
+      const previousExpense = getPeriodTotal(previousPeriod, compareMode, 'expense');
+      const currentBalance = currentIncome - currentExpense;
+      const previousBalance = previousIncome - previousExpense;
+
+      setCompareCard('cmp-income', 'cmp-income-delta', currentIncome, previousIncome);
+      setCompareCard('cmp-expense', 'cmp-expense-delta', currentExpense, previousExpense);
+      setCompareCard('cmp-balance', 'cmp-balance-delta', currentBalance, previousBalance);
+      renderCompareList();
+    }
+
+    function setCompareCard(amountId, deltaId, current, previous) {
+      const delta = getDeltaText(current, previous);
+      document.getElementById(amountId).textContent = money(current);
+      const deltaEl = document.getElementById(deltaId);
+      deltaEl.textContent = delta.text;
+      deltaEl.className = `delta ${delta.cls}`;
+    }
+
+    function renderCompareList() {
+      const listEl = document.getElementById('compare-list');
+      const currentPeriod = compareMode === 'year'
+        ? document.getElementById('compare-current-year').value.trim()
+        : document.getElementById('compare-current-month').value.trim();
+      const previousPeriod = compareMode === 'year'
+        ? document.getElementById('compare-previous-year').value.trim()
+        : document.getElementById('compare-previous-month').value.trim();
+
+      if (!currentPeriod || !previousPeriod) {
+        listEl.innerHTML = '<div class="compare-empty">請先選擇要比較的期間。</div>';
+        return;
+      }
+
+      if (!isValidComparePeriod(currentPeriod) || !isValidComparePeriod(previousPeriod)) {
+        listEl.innerHTML = '<div class="compare-empty">請確認期間格式後再比較。</div>';
+        return;
+      }
+
+      const currentMap = getPeriodCategoryTotals(currentPeriod, compareMode, compareType);
+      const previousMap = getPeriodCategoryTotals(previousPeriod, compareMode, compareType);
+      const allIds = Array.from(new Set([...Object.keys(currentMap), ...Object.keys(previousMap)]));
+
+      if (allIds.length === 0) {
+        listEl.innerHTML = `
+          <div class="compare-empty">
+            目前沒有可比較的${compareType === 'income' ? '收入' : '支出'}紀錄。<br>
+            先建立兩個期間的資料，這裡就會顯示分類比較。
+          </div>
+        `;
+        return;
+      }
+
+      const rows = allIds.map(id => {
+        const cur = currentMap[id] || previousMap[id] || { id, label: '其他', icon: '✨', amount: 0 };
+        const currentAmount = currentMap[id]?.amount || 0;
+        const previousAmount = previousMap[id]?.amount || 0;
+        const delta = getDeltaText(currentAmount, previousAmount);
+        const max = Math.max(currentAmount, previousAmount, 1);
+        return {
+          id,
+          icon: cur.icon,
+          label: cur.label,
+          currentAmount,
+          previousAmount,
+          delta,
+          width: Math.round((currentAmount / max) * 100)
+        };
+      }).sort((a, b) => Math.abs(b.currentAmount - b.previousAmount) - Math.abs(a.currentAmount - a.previousAmount));
+
+      listEl.innerHTML = rows.map(row => `
+        <div class="compare-row">
+          <div class="compare-row-top">
+            <div class="compare-cat">
+              <div class="compare-cat-icon">${escapeHtml(row.icon)}</div>
+              <div class="compare-cat-name">${escapeHtml(row.label)}</div>
+            </div>
+            <div class="compare-delta ${row.delta.cls}">${escapeHtml(row.delta.text)}</div>
+          </div>
+          <div class="compare-row-detail">
+            <div class="compare-mini">期間 A<strong>${money(row.currentAmount)}</strong></div>
+            <div class="compare-mini">期間 B<strong>${money(row.previousAmount)}</strong></div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-current ${compareType === 'income' ? 'income' : ''}" style="width:${row.width}%"></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function getMockInsight() {
+      const currentRecords = records.filter(r => r.date && r.date.slice(0, 7) === currentMonth);
+      const exp = currentRecords.filter(r => r.type === 'expense').reduce((s, r) => s + Number(r.amount || 0), 0);
+      const inc = currentRecords.filter(r => r.type === 'income').reduce((s, r) => s + Number(r.amount || 0), 0);
+      const balance = inc - exp;
+
+      if (currentRecords.length === 0) {
+        alert('AI 理財精靈：這個月還沒有紀錄喔，先記下一筆，讓我幫你觀察金錢流向吧 ✨');
+      } else if (exp === 0) {
+        alert('AI 理財精靈：你這個月還沒有支出紀錄，是個超棒的開始喔 ✨');
+      } else if (balance > 0 && exp < 5000) {
+        alert('AI 理財精靈：你目前支出控制得很好，而且還有結餘，是非常穩定的理財節奏 💖');
+      } else if (balance > 0) {
+        alert('AI 理財精靈：這個月仍有結餘，建議可以檢查主要支出分類，找出最值得保留與可以調整的花費 💡');
+      } else {
+        alert('AI 理財精靈：這個月支出已超過收入，可以先檢查主要支出分類，找出下個月最容易改善的地方 💪');
+      }
+    }
+
+    function bindMonthButton(id, direction) {
+      const button = document.getElementById(id);
+      if (!button) return;
+      button.addEventListener('click', event => {
+        event.preventDefault();
+        changeMonth(direction);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('category-modal').addEventListener('click', function(event) {
+        if (event.target === this) closeCategoryManager();
+      });
+
+      bindMonthButton('month-prev-btn', -1);
+      bindMonthButton('month-next-btn', 1);
+      populateDateSelects();
+      setDateSelects(getTodayDate());
+      applyLayoutSettings();
+      loadCategories();
+      loadTheme();
+      setType('expense');
+      initCompareControls();
+      loadRecords();
+    });
+  </script>
+</body>
+</html>
