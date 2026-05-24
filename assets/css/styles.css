@@ -1122,7 +1122,7 @@ body.theme-dark .add-form {
 
 /* ========== 響應式設計：手機防跑版 ========== */
 
-@media (max-width: 430px) {
+@media (max-width: 600px) {
   html,
   body {
     width: 100%;
@@ -1140,7 +1140,7 @@ body.theme-dark .add-form {
 
   .app {
     width: 100%;
-    max-width: 480px;
+    max-width: 100%;
     margin-inline: auto;
     overflow-x: hidden;
   }
@@ -1309,7 +1309,7 @@ textarea {
   overflow-wrap: anywhere;
 }
 
-@media (max-width: 430px) {
+@media (max-width: 600px) {
   .manage-row {
     display: grid;
     grid-template-columns: 44px 1fr 36px 36px 36px;
