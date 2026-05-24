@@ -6,6 +6,20 @@ document.getElementById('category-modal').addEventListener('click', function(eve
   }
 });
 
+function bindMonthButton(id, direction) {
+  const button = document.getElementById(id);
+
+  if (!button) return;
+
+  button.addEventListener('click', function(event) {
+    event.preventDefault();
+    changeMonth(direction);
+  });
+}
+
+bindMonthButton('month-prev-btn', -1);
+bindMonthButton('month-next-btn', 1);
+
 document.getElementById('date').value = getTodayDate();
 
 applyLayoutSettings();
