@@ -77,6 +77,13 @@ function getDeltaText(current, previous) {
   }
 
 
+function isValidComparePeriod(value) {
+    return compareMode === 'year'
+      ? isValidYearString(value)
+      : isValidMonthString(value);
+  }
+
+
 function renderPage() {
     document.getElementById('month-label').textContent = getMonthText(currentMonth);
 
@@ -149,6 +156,30 @@ function renderComparePage() {
 
     if (!currentPeriod || !previousPeriod) return;
 
+    if (!isValidComparePeriod(currentPeriod) || !isValidComparePeriod(previousPeriod)) {
+      document.getElementById('compare-subtitle').textContent =
+        compareMode === 'year'
+          ? '請輸入正確年份，格式為 YYYY。'
+          : '請輸入正確月份，格式為 YYYY-MM。';
+
+      ['cmp-income', 'cmp-expense', 'cmp-balance'].forEach(id => {
+        document.getElementById(id).textContent = money(0);
+      });
+
+      ['cmp-income-delta', 'cmp-expense-delta', 'cmp-balance-delta'].forEach(id => {
+        const el = document.getElementById(id);
+        el.textContent = '—';
+        el.className = 'delta neutral';
+      });
+
+      document.getElementById('compare-list').innerHTML = `
+        <div class="compare-empty">
+          請確認期間格式後再比較。
+        </div>
+      `;
+      return;
+    }
+
     const currentText = compareMode === 'year'
       ? `${currentPeriod} 年`
       : getMonthText(currentPeriod);
@@ -203,6 +234,15 @@ function renderCompareList() {
       listEl.innerHTML = `
         <div class="compare-empty">
           請先選擇要比較的期間。
+        </div>
+      `;
+      return;
+    }
+
+    if (!isValidComparePeriod(currentPeriod) || !isValidComparePeriod(previousPeriod)) {
+      listEl.innerHTML = `
+        <div class="compare-empty">
+          請確認期間格式後再比較。
         </div>
       `;
       return;
@@ -314,4 +354,3 @@ function getMockInsight() {
       alert('AI 理財精靈：這個月支出已超過收入，可以先檢查主要支出分類，找出下個月最容易改善的地方 💪');
     }
   }
-

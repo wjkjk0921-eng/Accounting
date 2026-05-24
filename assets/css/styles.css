@@ -951,6 +951,27 @@ body.theme-dark .btn-insight {
   border-radius: 18px;
 }
 
+.add-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--text);
+  margin-bottom: 5px;
+}
+
+.add-desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text2);
+  margin-bottom: 14px;
+}
+
+.manage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
 .icon-picker {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -1097,82 +1118,119 @@ body.theme-dark .add-form {
 }
 
 /* ========== 響應式設計 (手機防跑版) ========== */
-@media (max-width: 760px) {
-  .cute-sticker {
-    width: 38px;
-    height: 38px;
-    font-size: 20px;
-    opacity: .35;
-  }
+/* ===== 手機版排版修正：防止日期欄位與比較分析區塊爆版 ===== */
 
-  .cute-sticker.s1 {
-    left: 4px;
-  }
-
-  .cute-sticker.s2 {
-    right: 4px;
-  }
-
-  .cute-sticker.s3 {
-    left: 2px;
-  }
-
-  .cute-sticker.s4 {
-    right: 2px;
-  }
-}
+/* ========== 響應式設計：手機防跑版 ========== */
 
 @media (max-width: 430px) {
+  html,
   body {
-    padding-left: 14px;
-    padding-right: 14px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
-  .theme-selector {
-    width: 82%;
+  body {
+    padding: 16px 12px 48px;
+  }
+
+  .cute-sticker {
+    display: none;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 480px;
+    margin-inline: auto;
+    overflow-x: hidden;
+  }
+
+  .card,
+  .month-nav,
+  .stats,
+  .compare-controls,
+  .compare-summary,
+  .compare-list,
+  .compare-row,
+  .compare-periods,
+  .compare-row-detail {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .row-2 {
-    display: grid !important;
-    grid-template-columns: 1fr !important; /* 強制規格設定 */
+    grid-template-columns: 1fr;
+  }
+
+  .stats,
+  .compare-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .compare-periods,
+  .compare-row-detail {
+    grid-template-columns: 1fr;
   }
 
   .cat-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 13px 6px;
   }
 
-  .cat-circle {
-    width: 42px;
-    height: 42px;
-    font-size: 20px;
+  .compare-row-top {
+    align-items: flex-start;
   }
 
-  .cat-label {
-    font-size: 11px;
+  .compare-cat {
+    min-width: 0;
   }
 
-  .stats {
-    gap: 8px;
+  .compare-cat-name {
+    max-width: 180px;
   }
 
-  .stat-card .val {
-    font-size: 16px;
+  .compare-delta,
+  .rec-amount {
+    flex-shrink: 0;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  input[type="date"],
+  input[type="month"],
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+  }
+
+  .toast {
+    width: calc(100% - 32px);
+    max-width: 360px;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .modal-overlay {
+    padding: 12px;
   }
 
   .modal-content {
-    max-width: 100%;
+    max-height: 90vh;
+  }
+
+  .modal-body {
+    padding: 16px;
   }
 
   .icon-picker {
     grid-template-columns: repeat(6, 1fr);
-    max-height: 158px;
-  }
-
-  .icon-option {
-    width: 34px;
-    height: 34px;
-    font-size: 18px;
   }
 
   .add-form {
@@ -1184,86 +1242,119 @@ body.theme-dark .add-form {
     width: 100%;
   }
 
-  .selected-icon-preview {
-    width: 48px;
-    height: 48px;
-    font-size: 23px;
-  }
-
-  /* 解決手機版比較分析並排被擠壓的問題 */
-  .compare-row-detail,
-  .compare-periods {
-    grid-template-columns: 1fr;
+  .modal-actions {
+    padding: 12px 16px 16px;
   }
 }
 
-/* ===== 強制修正手機版日期欄位跑版：請放在整份 CSS 最底部 ===== */
-html,
-body {
-  width: 100% !important;
-  max-width: 100% !important;
-  overflow-x: hidden !important;
+img,
+svg,
+canvas {
+  max-width: 100%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  margin: 0 !important;
+  overscroll-behavior-x: none;
 }
 
-.app {
-  width: 100% !important;
-  max-width: 480px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  overflow-x: hidden !important;
+input,
+select,
+textarea,
+button {
+  font: inherit;
 }
 
-.card,
-.compare-controls,
-.compare-periods,
-.compare-periods label {
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  overflow-x: hidden !important;
+input,
+select,
+textarea {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-.compare-periods {
-  display: grid !important;
-  grid-template-columns: 1fr !important;
-  gap: 12px !important;
+.rec-row,
+.compare-row-top,
+.category-toolbar,
+.modal-actions,
+.manage-row {
+  min-width: 0;
 }
 
-.compare-periods label {
-  display: block !important;
+.rec-info,
+.compare-cat,
+.add-input-group,
+.manage-row input {
+  min-width: 0;
 }
 
-.compare-periods input,
-.compare-periods input[type="month"],
-.compare-periods input[type="number"] {
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  box-sizing: border-box !important;
-  appearance: none !important;
-  -webkit-appearance: none !important;
+.rec-cat-name,
+.rec-date-notes,
+.compare-cat-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* 如果是記帳頁的日期 input 跑版，也一起修 */
-.row-2 {
-  display: grid !important;
-  grid-template-columns: 1fr !important;
-  gap: 10px !important;
+.rec-date-notes {
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
-.row-2 input,
-.row-2 input[type="date"],
-.row-2 input[type="number"] {
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  box-sizing: border-box !important;
-  appearance: none !important;
-  -webkit-appearance: none !important;
+.rec-amount,
+.compare-delta {
+  max-width: 42%;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 430px) {
+  .manage-row {
+    display: grid;
+    grid-template-columns: 44px 1fr 36px 36px 36px;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .manage-icon-input {
+    width: 44px;
+  }
+
+  .mini-btn {
+    width: 36px;
+    min-height: 36px;
+    padding: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  body {
+    padding-inline: 10px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .cat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .compare-cat-name {
+    max-width: 130px;
+  }
+
+  .rec-amount,
+  .compare-delta {
+    font-size: 14px;
+  }
+
+  .manage-row {
+    grid-template-columns: 40px 1fr;
+  }
+
+  .manage-row .mini-btn {
+    width: 100%;
+  }
 }

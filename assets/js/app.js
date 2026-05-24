@@ -6,7 +6,7 @@ document.getElementById('category-modal').addEventListener('click', function(eve
   }
 });
 
-document.getElementById('date').value = new Date().toISOString().slice(0, 10);
+document.getElementById('date').value = getTodayDate();
 
 applyLayoutSettings();
 loadCategories();

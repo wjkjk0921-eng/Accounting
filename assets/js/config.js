@@ -70,7 +70,11 @@ const THEME_SELECTOR_POSITION = 'top';
   let editingCategories = [];
 
   let records = [];
-  let currentMonth = new Date().toISOString().slice(0, 7);
+  let currentMonth = (() => {
+    const today = new Date();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    return `${today.getFullYear()}-${month}`;
+  })();
   let currentType = 'expense';
   let selectedCat = null;
   let currentPage = 'record';

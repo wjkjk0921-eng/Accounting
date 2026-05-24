@@ -32,8 +32,8 @@ function submitRecord() {
       return;
     }
 
-    if (!date) {
-      showToast('⚠️ 請選擇日期');
+    if (!isValidDateString(date)) {
+      showToast('⚠️ 請輸入正確日期，例如 2026-05-24');
       return;
     }
 
@@ -84,8 +84,7 @@ function delRecord(id) {
 
 
 function changeMonth(d) {
-    const [y, m] = currentMonth.split('-').map(Number);
-    currentMonth = new Date(y, m - 1 + d, 1).toISOString().slice(0, 7);
+    currentMonth = addMonths(currentMonth, d);
 
     document.getElementById('compare-current-month').value = currentMonth;
     document.getElementById('compare-previous-month').value = getPreviousMonth(currentMonth);
@@ -142,4 +141,3 @@ function getPeriodCategoryTotals(periodValue, mode, type) {
 
     return map;
   }
-
