@@ -577,6 +577,30 @@ body.theme-dark .btn-insight {
   transform: translateY(-1px);
 }
 
+/* 修正 iPhone 日期欄凸出去 */
+
+.card {
+
+  overflow: hidden;
+
+}
+
+input[type="date"] {
+
+  width: 100%;
+
+  max-width: 100%;
+
+  min-width: 0;
+
+  display: block;
+
+  -webkit-appearance: none;
+
+  appearance: none;
+
+}
+
 .rec-row {
   display: flex;
   align-items: center;
