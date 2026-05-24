@@ -1,34 +1,18 @@
 /* ========== 基礎重置與變數 ========== */
 *, *::before, *::after { 
-  box-sizing: border-box; 
-  margin: 0; 
-  padding: 0; 
+  box-sizing: border-box; margin: 0; padding: 0; 
 }
 
 :root {
-  --bg: #fff8f5; 
-  --surface: #ffffff; 
-  --surface2: #f9ebe5; 
-  --border: #ecd0c5;
-  --text: #2f211d; 
-  --text2: #7b574c; 
-  --text3: #b48a7d;
-  --accent: #e9a18f; 
-  --accent-bg: #fff0ea; 
-  --accent-tx: #9c4f42;
-  --green: #6eb58a; 
-  --green-bg: #edf8f2; 
-  --green-tx: #2c7549;
-  --red: #e77b73; 
-  --red-bg: #fae9e5; 
-  --red-tx: #a8453d;
+  --bg: #fff8f5; --surface: #ffffff; --surface2: #f9ebe5; --border: #ecd0c5;
+  --text: #2f211d; --text2: #7b574c; --text3: #b48a7d;
+  --accent: #e9a18f; --accent-bg: #fff0ea; --accent-tx: #9c4f42;
+  --green: #6eb58a; --green-bg: #edf8f2; --green-tx: #2c7549;
+  --red: #e77b73; --red-bg: #fae9e5; --red-tx: #a8453d;
   --shadow: 0 2px 14px rgba(130, 80, 60, 0.09);
-  --radius-sm: 10px; 
-  --radius-md: 14px; 
-  --radius-lg: 20px;
+  --radius-sm: 10px; --radius-md: 14px; --radius-lg: 20px;
 }
 
-/* ========== 主題配色 ========== */
 body.theme-green {
   --bg: #f2f9f5; --surface: #ffffff; --surface2: #e3f2ea; --border: #c8e6d6;
   --text: #1a3324; --text2: #366b4d; --text3: #6e9e84;
@@ -84,25 +68,17 @@ body.theme-pompom {
 /* ========== 基礎版面與動畫 ========== */
 body { 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif; 
-  background: var(--bg); 
-  color: var(--text); 
-  padding: 24px 16px 56px; 
-  min-height: 100vh; 
-  transition: background 0.3s, color 0.3s; 
-  overflow-x: hidden; 
+  background: var(--bg); color: var(--text); padding: 24px 16px 56px; 
+  min-height: 100vh; transition: background 0.3s, color 0.3s; 
+  overflow-x: hidden; width: 100%;
 }
 
 .cute-bg { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
 .cute-sticker { 
-  position: absolute; 
-  width: 46px; height: 46px; 
-  border-radius: 18px; 
-  background: var(--surface); 
-  border: 1px solid var(--border); 
-  box-shadow: var(--shadow); 
-  display: flex; align-items: center; justify-content: center; 
-  font-size: 23px; opacity: 0.62; 
-  animation: floaty 5s ease-in-out infinite; 
+  position: absolute; width: 46px; height: 46px; border-radius: 18px; 
+  background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); 
+  display: flex; align-items: center; justify-content: center; font-size: 23px; 
+  opacity: 0.62; animation: floaty 5s ease-in-out infinite; 
 }
 .cute-sticker.s1 { top: 92px; left: max(10px, calc(50% - 330px)); }
 .cute-sticker.s2 { top: 190px; right: max(10px, calc(50% - 330px)); animation-delay: .5s; }
@@ -114,7 +90,7 @@ body {
   50% { transform: translateY(-10px) rotate(4deg); } 
 }
 
-.app { max-width: 480px; margin: 0 auto; position: relative; z-index: 1; }
+.app { width: 100%; max-width: 480px; margin: 0 auto; position: relative; z-index: 1; }
 
 /* ========== 頂部標題與切換 ========== */
 .header { text-align: center; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; gap: 7px; }
@@ -122,10 +98,9 @@ body {
 .header p { color: var(--text2); font-size: 14px; }
 .theme-control { width: 100%; display: flex; justify-content: center; }
 .theme-selector { 
-  background: var(--surface); border: 1px solid var(--border); 
-  padding: 8px 15px; border-radius: 999px; 
-  font-size: 13px; color: var(--text2); outline: none; cursor: pointer; 
-  box-shadow: var(--shadow); max-width: 260px; text-align: center; 
+  background: var(--surface); border: 1px solid var(--border); padding: 8px 15px; 
+  border-radius: 999px; font-size: 13px; color: var(--text2); outline: none; 
+  cursor: pointer; box-shadow: var(--shadow); max-width: 260px; text-align: center; 
 }
 
 body.selector-top .theme-control { order: 1; }
@@ -137,23 +112,22 @@ body.selector-bottom .theme-control { order: 3; }
 
 /* ========== 分頁標籤 ========== */
 .page-tabs { 
-  display: grid; grid-template-columns: repeat(2, 1fr); 
-  background: var(--surface); border-radius: 999px; 
-  padding: 5px; box-shadow: var(--shadow); margin-bottom: 16px; gap: 5px; 
+  display: grid; grid-template-columns: repeat(2, 1fr); background: var(--surface); 
+  border-radius: 999px; padding: 5px; box-shadow: var(--shadow); margin-bottom: 16px; gap: 5px; 
 }
 .page-tab { 
-  border: none; border-radius: 999px; padding: 10px 8px; 
-  background: transparent; color: var(--text2); font-weight: bold; cursor: pointer; transition: .2s; 
+  border: none; border-radius: 999px; padding: 10px 8px; background: transparent; 
+  color: var(--text2); font-weight: bold; cursor: pointer; transition: .2s; 
 }
 .page-tab.active { background: var(--accent); color: #fff; }
 .page { display: none; }
 .page.active { display: block; }
 
-/* ========== 月份與統計看板 ========== */
+/* ========== 記帳頁面 - 統計與輸入區 ========== */
 .month-nav { 
-  display: flex; justify-content: space-between; align-items: center; 
-  background: var(--surface); padding: 12px 16px; margin-bottom: 16px; 
-  border-radius: var(--radius-md); box-shadow: var(--shadow); font-weight: bold; color: var(--text2); 
+  display: flex; justify-content: space-between; align-items: center; background: var(--surface); 
+  padding: 12px 16px; margin-bottom: 16px; border-radius: var(--radius-md); 
+  box-shadow: var(--shadow); font-weight: bold; color: var(--text2); 
 }
 .month-nav button { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--accent); padding: 0 10px; }
 
@@ -165,19 +139,16 @@ body.selector-bottom .theme-control { order: 3; }
 .stat-card.expense .val { color: var(--red-tx); }
 .stat-card.balance .val { color: var(--accent-tx); }
 
-/* ========== 卡片與輸入區 ========== */
 .card { 
-  background: var(--surface); border-radius: var(--radius-lg); 
-  padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow); 
-  border: 1px solid rgba(255,255,255,.55); 
+  background: var(--surface); border-radius: var(--radius-lg); padding: 20px; 
+  margin-bottom: 20px; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,.55); 
 }
 body.theme-dark .card { border-color: rgba(255,255,255,.05); }
 
 .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
 input.main-input { 
-  width: 100%; padding: 12px; border-radius: var(--radius-sm); 
-  border: 1px solid var(--border); font-size: 16px; color: var(--text); 
-  background: var(--bg); outline: none; transition: 0.2s; 
+  width: 100%; padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border); 
+  font-size: 16px; color: var(--text); background: var(--bg); outline: none; transition: 0.2s; 
 }
 input.main-input:focus { border-color: var(--accent); background: var(--surface); }
 
@@ -186,7 +157,6 @@ input.main-input:focus { border-color: var(--accent); background: var(--surface)
 .type-btn.active[data-type="expense"] { background: var(--accent); color: #fff; }
 .type-btn.active[data-type="income"] { background: var(--green); color: #fff; }
 
-/* ========== 類別圖案網格 ========== */
 .category-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 10px; }
 .category-title { font-size: 14px; font-weight: bold; color: var(--text2); }
 .btn-manage { border: 1px solid var(--border); background: var(--surface2); color: var(--text2); padding: 7px 10px; border-radius: 999px; cursor: pointer; font-size: 12px; font-weight: bold; }
@@ -195,16 +165,14 @@ input.main-input:focus { border-color: var(--accent); background: var(--surface)
 .cat-btn { border: none; background: transparent; cursor: pointer; color: var(--text2); font-size: 12px; text-align: center; transition: .18s; }
 .cat-btn:hover { transform: translateY(-2px); }
 .cat-circle { 
-  width: 46px; height: 46px; margin: 0 auto 5px; border-radius: 50%; 
-  background: var(--surface2); border: 2px solid transparent; 
-  display: flex; align-items: center; justify-content: center; font-size: 22px; 
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.45); transition: .18s; 
+  width: 46px; height: 46px; margin: 0 auto 5px; border-radius: 50%; background: var(--surface2); 
+  border: 2px solid transparent; display: flex; align-items: center; justify-content: center; 
+  font-size: 22px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.45); transition: .18s; 
 }
 .cat-btn.active .cat-circle { border-color: var(--accent); background: var(--accent-bg); transform: scale(1.05); }
 .cat-btn.active-income .cat-circle { border-color: var(--green); background: var(--green-bg); transform: scale(1.05); }
 .cat-label { max-width: 62px; margin: 0 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* ========== 按鈕與歷史紀錄 ========== */
 .btn-submit, .btn-insight { width: 100%; padding: 14px; border-radius: var(--radius-sm); cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.2s; border: none; }
 .btn-submit { background: var(--accent-bg); border: 1px solid var(--accent); color: var(--accent-tx); margin-bottom: 10px; }
 .btn-insight { background: #fff3cd; border: 1px solid #ffeeba; color: #856404; }
@@ -221,6 +189,45 @@ body.theme-dark .btn-insight { background: #3b3420; border-color: #5b4f2d; color
 .rec-amount.expense { color: var(--red-tx); }
 .rec-amount.income { color: var(--green-tx); }
 .btn-del { background: none; border: none; cursor: pointer; color: var(--text3); font-size: 18px; padding: 4px 8px; }
+
+/* ========== 比較分析頁面專屬 CSS (之前遺漏的部分) ========== */
+.compare-header { margin-bottom: 14px; }
+.compare-title { font-size: 18px; font-weight: bold; color: var(--text2); margin-bottom: 5px; }
+.compare-subtitle { font-size: 12px; color: var(--text3); line-height: 1.5; }
+.compare-controls { background: var(--surface2); border-radius: 16px; padding: 12px; margin-bottom: 16px; }
+.compare-mode { display: grid; grid-template-columns: repeat(2, 1fr); background: var(--surface); border-radius: 999px; padding: 4px; margin-bottom: 12px; gap: 4px; }
+.compare-mode-btn { border: none; border-radius: 999px; padding: 9px; background: transparent; color: var(--text2); font-weight: bold; cursor: pointer; }
+.compare-mode-btn.active { background: var(--accent); color: #fff; }
+.compare-periods { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.compare-periods.hidden { display: none; }
+.compare-periods label { font-size: 12px; color: var(--text2); font-weight: bold; }
+.compare-periods input { width: 100%; margin-top: 6px; padding: 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text); outline: none; }
+.compare-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+.compare-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 8px; text-align: center; box-shadow: var(--shadow); }
+.compare-card .name { font-size: 12px; color: var(--text3); margin-bottom: 4px; }
+.compare-card .amount { font-size: 16px; font-weight: bold; color: var(--text); margin-bottom: 3px; }
+.compare-card .delta { font-size: 12px; font-weight: bold; }
+.delta.up { color: var(--red-tx); }
+.delta.down { color: var(--green-tx); }
+.delta.neutral { color: var(--text3); }
+.compare-type-tabs { display: flex; background: var(--surface2); border-radius: var(--radius-sm); padding: 4px; margin-bottom: 14px; gap: 4px; }
+.compare-type-btn { flex: 1; border: none; border-radius: 8px; padding: 10px; background: transparent; color: var(--text2); font-weight: bold; cursor: pointer; }
+.compare-type-btn.active.expense { background: var(--accent); color: white; }
+.compare-type-btn.active.income { background: var(--green); color: white; }
+.compare-list { display: flex; flex-direction: column; gap: 10px; }
+.compare-row { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px; }
+.compare-row-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
+.compare-cat { display: flex; align-items: center; gap: 9px; min-width: 0; }
+.compare-cat-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--surface2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; }
+.compare-cat-name { font-weight: bold; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.compare-delta { font-size: 13px; font-weight: bold; white-space: nowrap; }
+.compare-row-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.compare-mini { background: var(--bg); border-radius: 10px; padding: 8px; font-size: 12px; color: var(--text2); }
+.compare-mini strong { display: block; font-size: 14px; color: var(--text); margin-top: 2px; }
+.bar-wrap { height: 8px; background: var(--surface2); border-radius: 999px; overflow: hidden; display: flex; }
+.bar-current { height: 100%; background: var(--accent); border-radius: 999px; }
+.bar-current.income { background: var(--green); }
+.compare-empty { text-align: center; color: var(--text3); padding: 22px 10px; line-height: 1.6; }
 
 /* ========== 彈出視窗 (Modal) ========== */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; pointer-events: none; transition: .25s; padding: 18px; }
@@ -258,7 +265,7 @@ body.theme-dark .add-form { background: rgba(255,255,255,.04); border-color: rgb
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(-20px); }
 
-/* ========== 響應式設計 (RWD) ========== */
+/* ========== 響應式設計 (手機防跑版) ========== */
 @media (max-width: 760px) { 
   .cute-sticker { width: 38px; height: 38px; font-size: 20px; opacity: .35; } 
   .cute-sticker.s1 { left: 4px; } 
@@ -282,4 +289,7 @@ body.theme-dark .add-form { background: rgba(255,255,255,.04); border-color: rgb
   .add-form { grid-template-columns: 1fr; justify-items: center; } 
   .add-input-group { width: 100%; } 
   .selected-icon-preview { width: 48px; height: 48px; font-size: 23px; } 
+  /* 解決手機版比較分析並排被擠壓的問題 */
+  .compare-row-detail, 
+  .compare-periods { grid-template-columns: 1fr; }
 }
