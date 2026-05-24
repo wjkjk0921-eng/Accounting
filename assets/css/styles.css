@@ -577,28 +577,43 @@ body.theme-dark .btn-insight {
   transform: translateY(-1px);
 }
 
-/* 修正 iPhone 日期欄凸出去 */
+/* iPhone 修正：日期欄凸出去 */
+.app,
+.card,
+.row-2 {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
 
 .card {
-
   overflow: hidden;
+}
 
+.row-2 {
+  grid-template-columns: 1fr;
+}
+
+.row-2 > * {
+  min-width: 0;
+}
+
+.card input,
+.card select,
+.card textarea {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 input[type="date"] {
-
-  width: 100%;
-
-  max-width: 100%;
-
-  min-width: 0;
-
   display: block;
-
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   -webkit-appearance: none;
-
   appearance: none;
-
 }
 
 .rec-row {
