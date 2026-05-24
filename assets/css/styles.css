@@ -208,12 +208,10 @@ body {
 }
 
 @keyframes floaty {
-
   0%,
   100% {
     transform: translateY(0) rotate(-3deg);
   }
-
   50% {
     transform: translateY(-10px) rotate(4deg);
   }
@@ -389,11 +387,6 @@ body.selector-bottom .theme-control {
 }
 
 .card {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  overflow: hidden;
-
   background: var(--surface);
   border-radius: var(--radius-lg);
   padding: 20px;
@@ -575,45 +568,6 @@ body.theme-dark .btn-insight {
 .btn-insight:hover {
   filter: brightness(.97);
   transform: translateY(-1px);
-}
-
-/* iPhone 修正：日期欄凸出去 */
-.app,
-.card,
-.row-2 {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-}
-
-.card {
-  overflow: hidden;
-}
-
-.row-2 {
-  grid-template-columns: 1fr;
-}
-
-.row-2 > * {
-  min-width: 0;
-}
-
-.card input,
-.card select,
-.card textarea {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-}
-
-input[type="date"] {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  -webkit-appearance: none;
-  appearance: none;
 }
 
 .rec-row {
@@ -961,7 +915,7 @@ input[type="date"] {
   max-width: 460px;
   max-height: 88vh;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, .22);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
   display: flex;
   flex-direction: column;
 }
@@ -1179,7 +1133,8 @@ body.theme-dark .add-form {
   }
 
   .row-2 {
-    grid-template-columns: 1fr;
+    display: grid !important;
+    grid-template-columns: 1fr !important; /* 強制規格設定 */
   }
 
   .cat-grid {
@@ -1243,7 +1198,6 @@ body.theme-dark .add-form {
 }
 
 /* ===== 強制修正手機版日期欄位跑版：請放在整份 CSS 最底部 ===== */
-
 html,
 body {
   width: 100% !important;
