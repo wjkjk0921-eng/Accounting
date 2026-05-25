@@ -133,14 +133,14 @@
 
     body.theme-pompom {
       --bg: #fffdf7;
-      --surface2: #fff6dc;
-      --border: #eadfbd;
+      --surface2: #fff8e6;
+      --border: #eee3bf;
       --text: #30291c;
-      --text2: #756745;
-      --text3: #aa9b72;
-      --accent: #e3c675;
-      --accent-bg: #fff8df;
-      --accent-tx: #85671e;
+      --text2: #756947;
+      --text3: #ad9d70;
+      --accent: #efd98b;
+      --accent-bg: #fff9e8;
+      --accent-tx: #7f6420;
       --green: #78af7a;
       --green-bg: #eff8ec;
       --green-tx: #3d743e;
@@ -443,13 +443,9 @@
       font-size: 16px;
     }
 
-    .type-btn.active[data-type="expense"] {
-      background: var(--accent);
-      color: #fff;
-    }
-
+    .type-btn.active[data-type="expense"],
     .type-btn.active[data-type="income"] {
-      background: var(--green);
+      background: var(--accent);
       color: #fff;
     }
 
@@ -565,6 +561,30 @@
       color: #f5d889;
     }
 
+    .backup-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .btn-backup {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface2);
+      color: var(--text2);
+      padding: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn-backup:hover {
+      filter: brightness(.97);
+      transform: translateY(-1px);
+    }
+
     .btn-submit:hover,
     .btn-insight:hover {
       filter: brightness(.97);
@@ -630,6 +650,14 @@
     .rec-amount.expense { color: var(--red-tx); }
     .rec-amount.income { color: var(--green-tx); }
 
+    .rec-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .btn-edit,
     .btn-del {
       background: none;
       border: none;
@@ -637,7 +665,12 @@
       color: var(--text3);
       font-size: 18px;
       padding: 4px 8px;
-      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .btn-edit {
+      color: var(--accent-tx);
+      transform: scaleX(-1);
     }
 
     .compare-header { margin-bottom: 14px; }
@@ -701,7 +734,7 @@
       font-weight: bold;
     }
 
-    .compare-periods input {
+    .compare-periods select {
       width: 100%;
       margin-top: 6px;
       padding: 10px;
@@ -710,6 +743,14 @@
       background: var(--surface);
       color: var(--text);
       outline: none;
+      cursor: pointer;
+    }
+
+    .compare-month-selects {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 8px;
+      min-width: 0;
     }
 
     .compare-summary {
@@ -773,13 +814,9 @@
       cursor: pointer;
     }
 
-    .compare-type-btn.active.expense {
-      background: var(--accent);
-      color: white;
-    }
-
+    .compare-type-btn.active.expense,
     .compare-type-btn.active.income {
-      background: var(--green);
+      background: var(--accent);
       color: white;
     }
 
@@ -787,6 +824,122 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+    }
+
+    .compare-pie-section {
+      margin: 14px 0;
+    }
+
+    .compare-pie-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--text2);
+      margin-bottom: 10px;
+    }
+
+    .compare-pie-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .compare-pie-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .compare-pie-head {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--text);
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .pie-chart-wrap {
+      width: min(150px, 64vw);
+      aspect-ratio: 1;
+      margin: 12px auto;
+      position: relative;
+    }
+
+    .pie-chart {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--surface2);
+      box-shadow: inset 0 0 0 1px var(--border);
+    }
+
+    .pie-center {
+      position: absolute;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%);
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7px;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: bold;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .pie-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .pie-legend-row {
+      display: grid;
+      grid-template-columns: 10px minmax(0, 1fr) auto;
+      gap: 7px;
+      align-items: center;
+      color: var(--text2);
+      font-size: 12px;
+      min-width: 0;
+    }
+
+    .pie-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .pie-legend-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      min-width: 0;
+    }
+
+    .pie-legend-value {
+      color: var(--text);
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .pie-empty-note {
+      text-align: center;
+      color: var(--text3);
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 6px 0 2px;
     }
 
     .compare-row {
@@ -1188,6 +1341,9 @@
       .compare-controls,
       .compare-summary,
       .compare-list,
+      .compare-pie-section,
+      .compare-pie-grid,
+      .compare-pie-card,
       .compare-row,
       .compare-periods,
       .compare-row-detail {
@@ -1197,15 +1353,36 @@
       }
 
       .row-2,
-      .stats,
       .compare-summary,
+      .compare-pie-grid,
       .compare-periods,
       .compare-row-detail {
         grid-template-columns: 1fr;
       }
 
+      .stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .stat-card {
+        padding: 12px 6px;
+      }
+
+      .stat-card .val {
+        font-size: 16px;
+      }
+
       .date-selectors {
         grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .backup-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .compare-month-selects {
+        grid-template-columns: 1fr 1fr;
       }
 
       .cat-grid {
@@ -1321,11 +1498,11 @@
     <div class="header">
       <div class="theme-control">
         <select class="theme-selector" id="theme-select" onchange="changeTheme(this.value)" aria-label="選擇主題">
-          <option value="pink">🍑 蜜桃粉</option>
-          <option value="green">🍵 抹茶綠</option>
+          <option value="pink">🫘 豆沙風</option>
+          <option value="green">🍵 抹茶風</option>
           <option value="milktea">🧋 奶茶風</option>
           <option value="cinnamoroll">☁️ 藍白風</option>
-          <option value="kuromi">🖤 紫黑風</option>
+          <option value="kuromi">💜 香芋風</option>
           <option value="dark">🌙 暗黑風</option>
           <option value="pompom">🍮 奶黃風</option>
         </select>
@@ -1379,6 +1556,11 @@
 
         <button type="button" class="btn-submit" id="submit-btn" onclick="submitRecord()">🌟 記下來！</button>
         <button type="button" class="btn-insight" onclick="getMockInsight()">💡 呼叫理財精靈</button>
+        <div class="backup-actions">
+          <button type="button" class="btn-backup" onclick="exportData()">匯出資料</button>
+          <button type="button" class="btn-backup" onclick="openImportFile()">匯入資料</button>
+        </div>
+        <input type="file" id="import-file" accept="application/json,.json" hidden />
       </div>
 
       <div class="card">
@@ -1402,19 +1584,25 @@
 
           <div class="compare-periods" id="month-compare-controls">
             <label>比較期間 A
-              <input type="text" id="compare-current-month" class="month-input ios-safe-input" inputmode="numeric" pattern="[0-9]{4}-[0-9]{2}" maxlength="7" placeholder="YYYY-MM" autocomplete="off" aria-label="比較期間A，格式為YYYY-MM" onchange="renderComparePage()" />
+              <div class="compare-month-selects">
+                <select id="compare-current-year" aria-label="比較期間A年份" onchange="renderComparePage()"></select>
+                <select id="compare-current-month" aria-label="比較期間A月份" onchange="renderComparePage()"></select>
+              </div>
             </label>
             <label>比較期間 B
-              <input type="text" id="compare-previous-month" class="month-input ios-safe-input" inputmode="numeric" pattern="[0-9]{4}-[0-9]{2}" maxlength="7" placeholder="YYYY-MM" autocomplete="off" aria-label="比較期間B，格式為YYYY-MM" onchange="renderComparePage()" />
+              <div class="compare-month-selects">
+                <select id="compare-previous-year" aria-label="比較期間B年份" onchange="renderComparePage()"></select>
+                <select id="compare-previous-month" aria-label="比較期間B月份" onchange="renderComparePage()"></select>
+              </div>
             </label>
           </div>
 
           <div class="compare-periods hidden" id="year-compare-controls">
             <label>比較年份 A
-              <input type="text" id="compare-current-year" class="year-input ios-safe-input" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="YYYY" autocomplete="off" aria-label="比較年份A，格式為YYYY" onchange="renderComparePage()" />
+              <select id="compare-current-year-only" aria-label="比較年份A" onchange="renderComparePage()"></select>
             </label>
             <label>比較年份 B
-              <input type="text" id="compare-previous-year" class="year-input ios-safe-input" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="YYYY" autocomplete="off" aria-label="比較年份B，格式為YYYY" onchange="renderComparePage()" />
+              <select id="compare-previous-year-only" aria-label="比較年份B" onchange="renderComparePage()"></select>
             </label>
           </div>
         </div>
@@ -1423,6 +1611,33 @@
           <div class="compare-card"><div class="name">收入</div><div class="amount" id="cmp-income">$0</div><div class="delta neutral" id="cmp-income-delta">—</div></div>
           <div class="compare-card"><div class="name">支出</div><div class="amount" id="cmp-expense">$0</div><div class="delta neutral" id="cmp-expense-delta">—</div></div>
           <div class="compare-card"><div class="name">結餘</div><div class="amount" id="cmp-balance">$0</div><div class="delta neutral" id="cmp-balance-delta">—</div></div>
+        </div>
+
+        <div class="compare-pie-section" aria-label="分類圓餅圖">
+          <div class="compare-pie-title">分類占比圖</div>
+          <div class="compare-pie-grid">
+            <div class="compare-pie-card">
+              <div class="compare-pie-head" id="pie-current-title">期間 A</div>
+              <div class="pie-chart-wrap">
+                <div class="pie-chart" id="pie-current-chart"></div>
+                <div class="pie-center" id="pie-current-total">$0</div>
+              </div>
+              <div class="pie-legend" id="pie-current-legend">
+                <div class="pie-empty-note">目前沒有資料</div>
+              </div>
+            </div>
+
+            <div class="compare-pie-card">
+              <div class="compare-pie-head" id="pie-previous-title">期間 B</div>
+              <div class="pie-chart-wrap">
+                <div class="pie-chart" id="pie-previous-chart"></div>
+                <div class="pie-center" id="pie-previous-total">$0</div>
+              </div>
+              <div class="pie-legend" id="pie-previous-legend">
+                <div class="pie-empty-note">目前沒有資料</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="compare-type-tabs">
@@ -1476,16 +1691,16 @@
       { id: 'food', label: '餐飲', icon: '🍜', type: 'expense' },
       { id: 'drink', label: '飲品', icon: '🧋', type: 'expense' },
       { id: 'transport', label: '交通', icon: '🚇', type: 'expense' },
-      { id: 'shop', label: '購物', icon: '🎁', type: 'expense' },
+      { id: 'shop', label: '購物', icon: '🛒', type: 'expense' },
       { id: 'fun', label: '娛樂', icon: '🎠', type: 'expense' },
       { id: 'home', label: '居家', icon: '🛋️', type: 'expense' },
       { id: 'health', label: '健康', icon: '🌿', type: 'expense' },
       { id: 'beauty', label: '美妝', icon: '💄', type: 'expense' },
       { id: 'pet', label: '寵物', icon: '🐾', type: 'expense' },
-      { id: 'study', label: '學習', icon: '📚', type: 'expense' },
+      { id: 'study', label: '學習', icon: '📖', type: 'expense' },
       { id: 'travel', label: '旅行', icon: '✈️', type: 'expense' },
-      { id: 'gift', label: '送禮', icon: '🎀', type: 'expense' },
-      { id: 'other_exp', label: '其他', icon: '✨', type: 'expense' },
+      { id: 'gift', label: '禮物', icon: '🎁', type: 'expense' },
+      { id: 'other_exp', label: '其他', icon: '⭐', type: 'expense' },
       { id: 'salary', label: '薪資', icon: '💼', type: 'income' },
       { id: 'bonus', label: '獎金', icon: '🧧', type: 'income' },
       { id: 'invest', label: '投資', icon: '📈', type: 'income' },
@@ -1493,17 +1708,64 @@
       { id: 'refund', label: '退款', icon: '↩️', type: 'income' },
       { id: 'other_inc', label: '其他', icon: '✨', type: 'income' }
     ];
+    const DEFAULT_CATEGORY_UPDATES = {
+      shop: { label: '購物', icon: '🛒', oldLabels: ['購物'], oldIcons: ['🎁', '🛍️'] },
+      study: { label: '學習', icon: '📖', oldLabels: ['學習'], oldIcons: ['📚'] },
+      gift: { label: '禮物', icon: '🎁', oldLabels: ['送禮'], oldIcons: ['🎀'] },
+      other_exp: { label: '其他', icon: '⭐', oldLabels: ['其他'], oldIcons: ['✨'] }
+    };
     const ICON_OPTIONS = [
-      '🍜', '🍱', '🍛', '🍔', '🍟', '🧋', '☕', '🍵', '🍰', '🧁',
-      '🍪', '🍮', '🍓', '🍫', '🥐', '🍎', '🍇', '🍉', '🥗', '🍙',
-      '🚇', '🚌', '🚕', '🚗', '🛵', '🚲', '🚄', '✈️', '🧳', '⛽',
-      '🎁', '🛍️', '👗', '👟', '💄', '📱', '💻', '⌚', '🎧', '🧸',
-      '🎠', '🎬', '🎮', '🎤', '🎵', '🎨', '📷', '🏀', '⚽', '🎯',
-      '🏠', '🛋️', '💡', '🧺', '🛒', '🧻', '🧼', '🪴', '🔧', '📦',
-      '🌿', '💊', '🏥', '💪', '🧘', '🦷', '👓', '😴', '💆', '🧴',
-      '🐾', '🐶', '🐱', '🐰', '🐹', '📚', '📝', '📖', '💼', '🧧',
-      '📈', '👛', '↩️', '💰', '🏦', '🍑', '✨', '🎀', '🤎', '💗',
-      '⭐', '☁️', '🌙', '🖤', '💜', '💛', '🫧', '🌊', '🍮', '🍯'
+      '🍽️', '🍜', '🍱',
+      '🧋', '☕', '🍵',
+      '🍰', '🍪', '🍮',
+      '🍎', '🥑', '🥗',
+
+      '🚇', '🚌', '🚗',
+      '✈️', '🧳', '🏨',
+      '🛒', '🏷️', '📦',
+      '👗', '👟', '💄',
+
+      '📱', '💻', '🎧',
+      '🎬', '🎮', '🎠',
+      '🎨', '📷', '🎵',
+      '🏀', '⚽', '💪',
+
+      '🏠', '🛋️', '💡',
+      '🧺', '🧼', '🧻',
+      '💊', '🏥', '🦷',
+      '🧘', '😴', '💆',
+
+      '🐾', '🐶', '🐱',
+      '📚', '📝', '📖',
+      '💼', '📅', '🗂️',
+      '💰', '👛', '📈',
+
+      '💳', '🧾', '↩️',
+      '🎁', '🎀', '🧧',
+      '✨', '⭐', '💗',
+      '☁️', '🌙', '🌿'
+    ];
+
+    const THEME_ACCENT_COLORS = {
+      pink: '#e9a18f',
+      green: '#78c499',
+      milktea: '#c99662',
+      cinnamoroll: '#8fb8ed',
+      kuromi: '#a875c9',
+      dark: '#8e7cc3',
+      pompom: '#e3c675'
+    };
+
+    const PIE_BASE_COLORS = [
+      '#f6b6c8',
+      '#9fc9f3',
+      '#f3d982',
+      '#c7a7e8',
+      '#f0a6a0',
+      '#d8b58a',
+      '#b9a7c9',
+      '#a9bfd8',
+      '#e7b7d2'
     ];
 
     let selectedNewIcon = '✨';
@@ -1513,6 +1775,7 @@
     let currentMonth = getCurrentMonth();
     let currentType = 'expense';
     let selectedCat = null;
+    let editingRecordId = null;
     let currentPage = 'record';
     let compareType = 'expense';
     let compareMode = 'month';
@@ -1576,19 +1839,53 @@
       return isValidMonthString(monthStr) ? monthStr.replace('-', ' 年 ') + ' 月' : '月份格式錯誤';
     }
 
+    function getRecordYears() {
+      return records
+        .map(record => Number(String(record.date || '').slice(0, 4)))
+        .filter(year => Number.isInteger(year) && year >= 1900 && year <= 9999);
+    }
+
+    function getAvailableYearRange() {
+      const currentYear = new Date().getFullYear();
+      const years = getRecordYears();
+
+      return {
+        start: years.length ? Math.min(currentYear - 2, ...years) : currentYear - 2,
+        end: years.length ? Math.max(currentYear + 5, ...years) : currentYear + 5
+      };
+    }
+
+    function selectHasValue(select, value) {
+      return Array.from(select.options).some(option => option.value === String(value));
+    }
+
     function getDaysInMonth(year, month) {
       return new Date(Number(year), Number(month), 0).getDate();
+    }
+
+    function getAverageExpenseDays(monthStr) {
+      if (!isValidMonthString(monthStr)) return 1;
+
+      const [year, month] = monthStr.split('-').map(Number);
+      const selectedMonth = `${year}-${pad2(month)}`;
+
+      if (selectedMonth === getCurrentMonth()) {
+        return new Date().getDate();
+      }
+
+      return getDaysInMonth(year, month);
     }
 
     function populateDateSelects() {
       const yearSelect = document.getElementById('date-year');
       const monthSelect = document.getElementById('date-month');
-      const currentYear = new Date().getFullYear();
-      const startYear = currentYear - 10;
-      const endYear = currentYear + 2;
+      const previousYear = yearSelect.value;
+      const previousMonth = monthSelect.value;
+      const previousDay = document.getElementById('date-day').value;
+      const { start: startYear, end: endYear } = getAvailableYearRange();
 
       yearSelect.innerHTML = '';
-      for (let year = endYear; year >= startYear; year -= 1) {
+      for (let year = startYear; year <= endYear; year += 1) {
         yearSelect.add(new Option(`${year} 年`, String(year)));
       }
 
@@ -1597,8 +1894,16 @@
         monthSelect.add(new Option(`${month} 月`, pad2(month)));
       }
 
-      yearSelect.addEventListener('change', updateDayOptions);
-      monthSelect.addEventListener('change', updateDayOptions);
+      if (selectHasValue(yearSelect, previousYear)) yearSelect.value = previousYear;
+      if (selectHasValue(monthSelect, previousMonth)) monthSelect.value = previousMonth;
+
+      yearSelect.onchange = updateDayOptions;
+      monthSelect.onchange = updateDayOptions;
+      updateDayOptions();
+
+      if (selectHasValue(document.getElementById('date-day'), previousDay)) {
+        document.getElementById('date-day').value = previousDay;
+      }
     }
 
     function updateDayOptions() {
@@ -1633,6 +1938,64 @@
       return `${year}-${month}-${day}`;
     }
 
+    function populateCompareSelects() {
+      const { start: startYear, end: endYear } = getAvailableYearRange();
+      const yearIds = [
+        'compare-current-year',
+        'compare-previous-year',
+        'compare-current-year-only',
+        'compare-previous-year-only'
+      ];
+
+      yearIds.forEach(id => {
+        const select = document.getElementById(id);
+        const previousValue = select.value;
+        select.innerHTML = '';
+        for (let year = startYear; year <= endYear; year += 1) {
+          select.add(new Option(`${year} 年`, String(year)));
+        }
+        if (selectHasValue(select, previousValue)) select.value = previousValue;
+      });
+
+      ['compare-current-month', 'compare-previous-month'].forEach(id => {
+        const select = document.getElementById(id);
+        const previousValue = select.value;
+        select.innerHTML = '';
+        for (let month = 1; month <= 12; month += 1) {
+          select.add(new Option(`${month} 月`, pad2(month)));
+        }
+        if (selectHasValue(select, previousValue)) select.value = previousValue;
+      });
+    }
+
+    function setCompareMonthSelects(prefix, monthString) {
+      const safeMonth = isValidMonthString(monthString) ? monthString : getCurrentMonth();
+      const [year, month] = safeMonth.split('-');
+
+      document.getElementById(`compare-${prefix}-year`).value = year;
+      document.getElementById(`compare-${prefix}-month`).value = month;
+    }
+
+    function getCompareMonthValue(prefix) {
+      const year = document.getElementById(`compare-${prefix}-year`).value;
+      const month = document.getElementById(`compare-${prefix}-month`).value;
+      return `${year}-${month}`;
+    }
+
+    function setCompareYearSelect(prefix, yearValue) {
+      document.getElementById(`compare-${prefix}-year-only`).value = String(yearValue);
+    }
+
+    function getCompareYearValue(prefix) {
+      return document.getElementById(`compare-${prefix}-year-only`).value;
+    }
+
+    function getComparePeriodValue(prefix) {
+      return compareMode === 'year'
+        ? getCompareYearValue(prefix)
+        : getCompareMonthValue(prefix);
+    }
+
     function showToast(msg) {
       const el = document.getElementById('toast');
       el.textContent = msg;
@@ -1652,12 +2015,54 @@
         .replaceAll("'", '&#039;');
     }
 
+    function normalizeCategories(categoryList) {
+      const source = Array.isArray(categoryList) ? categoryList : [];
+      const defaultById = Object.fromEntries(DEFAULT_CATS.map(category => [category.id, category]));
+      const normalized = source
+        .filter(category => category && typeof category === 'object')
+        .map(category => {
+          const fallback = defaultById[category.id] || {};
+          const type = category.type === 'income' ? 'income' : 'expense';
+          const id = String(category.id || 'cat_' + uid());
+          const update = DEFAULT_CATEGORY_UPDATES[id];
+          let label = String(category.label || fallback.label || '其他');
+          let icon = String(category.icon || fallback.icon || '✨');
+
+          if (update) {
+            if (update.oldLabels.includes(label)) {
+              label = update.label;
+            }
+
+            if (update.oldIcons.includes(icon)) {
+              icon = update.icon;
+            }
+          }
+
+          return {
+            id,
+            label,
+            icon,
+            type
+          };
+        });
+
+      const existingIds = new Set(normalized.map(category => category.id));
+      DEFAULT_CATS.forEach(category => {
+        if (!existingIds.has(category.id)) {
+          normalized.push({ ...category });
+        }
+      });
+
+      return normalized;
+    }
+
     function loadCategories() {
       const data = localStorage.getItem('healing_categories');
       if (data) {
         try {
           const parsed = JSON.parse(data);
-          categories = Array.isArray(parsed) ? parsed : [...DEFAULT_CATS];
+          categories = normalizeCategories(parsed);
+          saveCategories();
         } catch (error) {
           categories = [...DEFAULT_CATS];
           localStorage.removeItem('healing_categories');
@@ -1698,10 +2103,12 @@
       catGrid.innerHTML = filtered.map(c => {
         const on = selectedCat === c.id;
         const cls = on ? (c.type === 'income' ? ' active-income' : ' active') : '';
+        const icon = c.icon || '✨';
+        const label = c.label || '其他';
         return `
           <button type="button" class="cat-btn${cls}" onclick="selectCategory('${escapeHtml(c.id)}')">
-            <div class="cat-circle">${escapeHtml(c.icon)}</div>
-            <div class="cat-label">${escapeHtml(c.label)}</div>
+            <div class="cat-circle">${escapeHtml(icon)}</div>
+            <div class="cat-label">${escapeHtml(label)}</div>
           </button>
         `;
       }).join('');
@@ -1744,12 +2151,39 @@
       `).join('');
     }
 
+    function getUsedEditingIcons() {
+      return new Set(
+        editingCategories
+          .filter(category => category.type === currentType)
+          .map(category => String(category.icon || '').trim())
+          .filter(Boolean)
+      );
+    }
+
+    function getAvailableIcons() {
+      const usedIcons = getUsedEditingIcons();
+      return ICON_OPTIONS.filter(icon => !usedIcons.has(icon));
+    }
+
     function renderIconPicker() {
       const picker = document.getElementById('icon-picker');
       const preview = document.getElementById('selected-icon-preview');
       if (!picker || !preview) return;
 
-      picker.innerHTML = ICON_OPTIONS.map(icon => {
+      const availableIcons = getAvailableIcons();
+
+      if (availableIcons.length === 0) {
+        selectedNewIcon = '✨';
+        picker.innerHTML = '<div style="grid-column:1/-1; color:var(--text3); font-size:12px; line-height:1.5;">目前圖案都已使用，請先刪除或修改上方分類圖案。</div>';
+        preview.textContent = selectedNewIcon;
+        return;
+      }
+
+      if (!availableIcons.includes(selectedNewIcon)) {
+        selectedNewIcon = availableIcons[0];
+      }
+
+      picker.innerHTML = availableIcons.map(icon => {
         const activeClass = icon === selectedNewIcon ? ' active' : '';
         return `
           <button type="button" class="icon-option${activeClass}" onclick="selectNewIcon('${escapeHtml(icon)}')" aria-label="選擇 ${escapeHtml(icon)}">
@@ -1782,7 +2216,22 @@
         return;
       }
 
+      if (field === 'icon') {
+        const duplicated = editingCategories.some(c => {
+          return c.id !== id
+            && c.type === currentType
+            && String(c.icon || '').trim() === cleanValue;
+        });
+
+        if (duplicated) {
+          showToast('這個圖案已被使用');
+          renderManageList();
+          return;
+        }
+      }
+
       target[field] = cleanValue;
+      renderIconPicker();
     }
 
     function moveCategory(id, direction) {
@@ -1812,6 +2261,7 @@
       editingCategories = editingCategories.filter(c => c.id !== id);
       if (selectedCat === id) selectedCat = null;
       renderManageList();
+      renderIconPicker();
     }
 
     function addCategory() {
@@ -1821,6 +2271,12 @@
 
       if (!label) {
         showToast('請輸入分類名稱');
+        return;
+      }
+
+      if (getUsedEditingIcons().has(icon)) {
+        showToast('這個圖案已被使用');
+        renderIconPicker();
         return;
       }
 
@@ -1864,6 +2320,9 @@
           localStorage.removeItem('healing_records');
         }
       }
+      populateDateSelects();
+      setDateSelects(getSelectedDate());
+      populateCompareSelects();
       renderPage();
     }
 
@@ -1900,8 +2359,7 @@
         return;
       }
 
-      records.push({
-        id: uid(),
+      const recordData = {
         catId: cat.id,
         type: currentType,
         amount,
@@ -1909,29 +2367,96 @@
         notes,
         icon: cat.icon,
         label: cat.label
-      });
+      };
+
+      const isEditingRecord = Boolean(editingRecordId);
+
+      if (isEditingRecord) {
+        const recordIndex = records.findIndex(r => r.id === editingRecordId);
+
+        if (recordIndex < 0) {
+          showToast('⚠️ 找不到要修改的紀錄，請重新選擇');
+          editingRecordId = null;
+          return;
+        }
+
+        records[recordIndex] = {
+          ...records[recordIndex],
+          ...recordData
+        };
+      } else {
+        records.push({
+          id: uid(),
+          ...recordData
+        });
+      }
 
       saveRecords();
+      populateDateSelects();
+      populateCompareSelects();
       document.getElementById('amount').value = '';
       document.getElementById('notes').value = '';
       currentMonth = date.slice(0, 7);
       selectedCat = null;
+      editingRecordId = null;
       renderCats();
       renderPage();
-      showToast(`${cat.icon} ${cat.label} 已記錄！`);
+      showToast(`${cat.icon} ${cat.label} ${isEditingRecord ? '已更新！' : '已記錄！'}`);
     }
 
     function delRecord(id) {
+      if (editingRecordId === id) {
+        editingRecordId = null;
+        document.getElementById('amount').value = '';
+        document.getElementById('notes').value = '';
+        selectedCat = null;
+        renderCats();
+      }
+
       records = records.filter(r => r.id !== id);
       saveRecords();
+      populateDateSelects();
+      populateCompareSelects();
       renderPage();
       showToast('🗑️ 已刪除紀錄');
     }
 
+    function editRecord(id) {
+      const record = records.find(r => r.id === id);
+
+      if (!record) {
+        showToast('⚠️ 找不到這筆紀錄');
+        return;
+      }
+
+      editingRecordId = id;
+      document.getElementById('amount').value = record.amount;
+      document.getElementById('notes').value = record.notes || '';
+
+      if (isValidDateString(record.date)) {
+        setDateSelects(record.date);
+        currentMonth = record.date.slice(0, 7);
+      }
+
+      setType(record.type === 'income' ? 'income' : 'expense');
+
+      if (categories.some(category => category.id === record.catId)) {
+        selectedCat = record.catId;
+        showToast('已帶入表單，修改後按「記下來！」儲存');
+      } else {
+        selectedCat = null;
+        showToast('原分類已不存在，請重新選擇分類');
+      }
+
+      renderCats();
+      renderPage();
+      document.getElementById('amount').focus();
+    }
+
     function changeMonth(d) {
       currentMonth = addMonths(currentMonth, d);
-      document.getElementById('compare-current-month').value = currentMonth;
-      document.getElementById('compare-previous-month').value = getPreviousMonth(currentMonth);
+      setCompareMonthSelects('current', currentMonth);
+      setCompareMonthSelects('previous', getPreviousMonth(currentMonth));
       renderPage();
     }
 
@@ -1993,6 +2518,9 @@
       localStorage.setItem('healing_theme', THEME_VALUES.includes(themeName) ? themeName : 'pink');
       updateButtonStyle();
       applyLayoutSettings();
+      if (document.getElementById('pie-current-chart')) {
+        renderComparePies();
+      }
     }
 
     function updateCuteStickers(themeName) {
@@ -2026,24 +2554,20 @@
       const submitBtn = document.getElementById('submit-btn');
       if (!submitBtn) return;
 
-      if (currentType === 'income') {
-        submitBtn.style.background = 'var(--green-bg)';
-        submitBtn.style.color = 'var(--green-tx)';
-        submitBtn.style.borderColor = 'var(--green)';
-      } else {
-        submitBtn.style.background = 'var(--accent-bg)';
-        submitBtn.style.color = 'var(--accent-tx)';
-        submitBtn.style.borderColor = 'var(--accent)';
-      }
+      submitBtn.style.background = 'var(--accent-bg)';
+      submitBtn.style.color = 'var(--accent-tx)';
+      submitBtn.style.borderColor = 'var(--accent)';
     }
 
     function initCompareControls() {
       const previousMonth = getPreviousMonth(currentMonth);
       const currentYear = new Date().getFullYear();
-      document.getElementById('compare-current-month').value = currentMonth;
-      document.getElementById('compare-previous-month').value = previousMonth;
-      document.getElementById('compare-current-year').value = currentYear;
-      document.getElementById('compare-previous-year').value = currentYear - 1;
+
+      populateCompareSelects();
+      setCompareMonthSelects('current', currentMonth);
+      setCompareMonthSelects('previous', previousMonth);
+      setCompareYearSelect('current', currentYear);
+      setCompareYearSelect('previous', currentYear - 1);
     }
 
     function switchPage(page) {
@@ -2123,21 +2647,23 @@
               <div class="rec-date-notes">${escapeHtml(r.date)} ${r.notes ? '｜' + escapeHtml(r.notes) : ''}</div>
             </div>
             <div class="rec-amount ${amountClass}">${sign}${money(r.amount)}</div>
-            <button type="button" class="btn-del" onclick="delRecord('${escapeHtml(r.id)}')" aria-label="刪除紀錄">✕</button>
+            <div class="rec-actions">
+              <button type="button" class="btn-edit" onclick="editRecord('${escapeHtml(r.id)}')" aria-label="編輯紀錄">✎</button>
+              <button type="button" class="btn-del" onclick="delRecord('${escapeHtml(r.id)}')" aria-label="刪除紀錄">✕</button>
+            </div>
           </div>
         `;
       }).join('');
     }
 
     function renderComparePage() {
-      const currentPeriod = compareMode === 'year'
-        ? document.getElementById('compare-current-year').value.trim()
-        : document.getElementById('compare-current-month').value.trim();
-      const previousPeriod = compareMode === 'year'
-        ? document.getElementById('compare-previous-year').value.trim()
-        : document.getElementById('compare-previous-month').value.trim();
+      const currentPeriod = getComparePeriodValue('current');
+      const previousPeriod = getComparePeriodValue('previous');
 
-      if (!currentPeriod || !previousPeriod) return;
+      if (!currentPeriod || !previousPeriod) {
+        resetComparePies('請先選擇要比較的期間');
+        return;
+      }
 
       if (!isValidComparePeriod(currentPeriod) || !isValidComparePeriod(previousPeriod)) {
         document.getElementById('compare-subtitle').textContent =
@@ -2152,6 +2678,7 @@
           el.className = 'delta neutral';
         });
         document.getElementById('compare-list').innerHTML = '<div class="compare-empty">請確認期間格式後再比較。</div>';
+        resetComparePies('請確認期間格式後再比較');
         return;
       }
 
@@ -2170,6 +2697,7 @@
       setCompareCard('cmp-expense', 'cmp-expense-delta', currentExpense, previousExpense);
       setCompareCard('cmp-balance', 'cmp-balance-delta', currentBalance, previousBalance);
       renderCompareList();
+      renderComparePies();
     }
 
     function setCompareCard(amountId, deltaId, current, previous) {
@@ -2180,14 +2708,143 @@
       deltaEl.className = `delta ${delta.cls}`;
     }
 
+    function getPieSegments(categoryMap) {
+      const rows = Object.values(categoryMap)
+        .filter(row => Number(row.amount || 0) > 0)
+        .sort((a, b) => Number(b.amount || 0) - Number(a.amount || 0));
+
+      const mainRows = rows.slice(0, 5).map(row => ({
+        label: row.label || '其他',
+        icon: row.icon || '✨',
+        amount: Number(row.amount || 0)
+      }));
+
+      const otherAmount = rows
+        .slice(5)
+        .reduce((sum, row) => sum + Number(row.amount || 0), 0);
+
+      if (otherAmount > 0) {
+        mainRows.push({
+          label: '其他',
+          icon: '✨',
+          amount: otherAmount
+        });
+      }
+
+      return mainRows;
+    }
+
+    function getPieBackground(segments, total) {
+      const pieColors = getPieColors();
+      let start = 0;
+      const slices = segments.map((segment, index) => {
+        const end = index === segments.length - 1
+          ? 100
+          : start + (segment.amount / total) * 100;
+        const color = pieColors[index % pieColors.length];
+        const slice = `${color} ${start.toFixed(2)}% ${end.toFixed(2)}%`;
+        start = end;
+        return slice;
+      });
+
+      return `conic-gradient(${slices.join(', ')})`;
+    }
+
+    function getPieColors() {
+      const selectedTheme = localStorage.getItem('healing_theme') || 'pink';
+      const activeAccent = (THEME_ACCENT_COLORS[selectedTheme] || '').toLowerCase();
+      const colors = PIE_BASE_COLORS.filter(color => color.toLowerCase() !== activeAccent);
+
+      return colors.length > 0 ? colors : PIE_BASE_COLORS;
+    }
+
+    function renderPiePanel(prefix, title, categoryMap) {
+      const titleEl = document.getElementById(`pie-${prefix}-title`);
+      const chartEl = document.getElementById(`pie-${prefix}-chart`);
+      const totalEl = document.getElementById(`pie-${prefix}-total`);
+      const legendEl = document.getElementById(`pie-${prefix}-legend`);
+
+      if (!titleEl || !chartEl || !totalEl || !legendEl) return;
+
+      const segments = getPieSegments(categoryMap);
+      const total = segments.reduce((sum, segment) => sum + segment.amount, 0);
+
+      titleEl.textContent = title;
+      totalEl.textContent = money(total);
+
+      if (total <= 0) {
+        chartEl.style.background = 'var(--surface2)';
+        legendEl.innerHTML = '<div class="pie-empty-note">這個期間沒有資料</div>';
+        return;
+      }
+
+      chartEl.style.background = getPieBackground(segments, total);
+      const pieColors = getPieColors();
+      legendEl.innerHTML = segments.map((segment, index) => {
+        const color = pieColors[index % pieColors.length];
+        const percent = Math.round((segment.amount / total) * 100);
+
+        return `
+          <div class="pie-legend-row">
+            <span class="pie-dot" style="background:${color}"></span>
+            <span class="pie-legend-name">${escapeHtml(segment.icon)} ${escapeHtml(segment.label)}</span>
+            <span class="pie-legend-value">${percent}%</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function resetComparePies(message) {
+      ['current', 'previous'].forEach(prefix => {
+        const titleEl = document.getElementById(`pie-${prefix}-title`);
+        const chartEl = document.getElementById(`pie-${prefix}-chart`);
+        const totalEl = document.getElementById(`pie-${prefix}-total`);
+        const legendEl = document.getElementById(`pie-${prefix}-legend`);
+
+        if (titleEl) titleEl.textContent = prefix === 'current' ? '期間 A' : '期間 B';
+        if (chartEl) chartEl.style.background = 'var(--surface2)';
+        if (totalEl) totalEl.textContent = money(0);
+        if (legendEl) legendEl.innerHTML = `<div class="pie-empty-note">${escapeHtml(message)}</div>`;
+      });
+    }
+
+    function renderComparePies() {
+      const currentPeriod = getComparePeriodValue('current');
+      const previousPeriod = getComparePeriodValue('previous');
+
+      if (!currentPeriod || !previousPeriod) {
+        resetComparePies('請先選擇要比較的期間');
+        return;
+      }
+
+      if (!isValidComparePeriod(currentPeriod) || !isValidComparePeriod(previousPeriod)) {
+        resetComparePies('請確認期間格式後再比較');
+        return;
+      }
+
+      const currentText = compareMode === 'year'
+        ? `${currentPeriod} 年`
+        : getMonthText(currentPeriod);
+      const previousText = compareMode === 'year'
+        ? `${previousPeriod} 年`
+        : getMonthText(previousPeriod);
+
+      renderPiePanel(
+        'current',
+        `期間 A｜${currentText}`,
+        getPeriodCategoryTotals(currentPeriod, compareMode, compareType)
+      );
+      renderPiePanel(
+        'previous',
+        `期間 B｜${previousText}`,
+        getPeriodCategoryTotals(previousPeriod, compareMode, compareType)
+      );
+    }
+
     function renderCompareList() {
       const listEl = document.getElementById('compare-list');
-      const currentPeriod = compareMode === 'year'
-        ? document.getElementById('compare-current-year').value.trim()
-        : document.getElementById('compare-current-month').value.trim();
-      const previousPeriod = compareMode === 'year'
-        ? document.getElementById('compare-previous-year').value.trim()
-        : document.getElementById('compare-previous-month').value.trim();
+      const currentPeriod = getComparePeriodValue('current');
+      const previousPeriod = getComparePeriodValue('previous');
 
       if (!currentPeriod || !previousPeriod) {
         listEl.innerHTML = '<div class="compare-empty">請先選擇要比較的期間。</div>';
@@ -2250,22 +2907,189 @@
       `).join('');
     }
 
+    function exportData() {
+      const backup = {
+        app: '錢錢日記',
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        records,
+        categories,
+        theme: localStorage.getItem('healing_theme') || 'pink'
+      };
+      const json = JSON.stringify(backup, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const dateText = getTodayDate().replaceAll('-', '');
+      const link = document.createElement('a');
+
+      link.href = url;
+      link.download = `money-diary-backup-${dateText}.json`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showToast('資料已匯出');
+    }
+
+    function openImportFile() {
+      const input = document.getElementById('import-file');
+      input.value = '';
+      input.click();
+    }
+
+    function parseJsonArray(value) {
+      if (Array.isArray(value)) return value;
+      if (typeof value !== 'string') return null;
+
+      try {
+        const parsed = JSON.parse(value);
+        return Array.isArray(parsed) ? parsed : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function normalizeImportedRecord(record) {
+      if (!record || typeof record !== 'object') return null;
+
+      const type = record.type === 'income' ? 'income' : 'expense';
+      const amount = Math.round(Number(record.amount || record.value || 0));
+      const date = String(record.date || '').slice(0, 10);
+
+      if (!Number.isFinite(amount) || amount <= 0 || !isValidDateString(date)) {
+        return null;
+      }
+
+      return {
+        id: String(record.id || uid()),
+        catId: String(record.catId || record.categoryId || record.category || (type === 'income' ? 'other_inc' : 'other_exp')),
+        type,
+        amount,
+        date,
+        notes: String(record.notes || record.note || record.memo || ''),
+        icon: String(record.icon || '✨'),
+        label: String(record.label || record.categoryLabel || record.categoryName || '其他')
+      };
+    }
+
+    function normalizeImportedCategory(category) {
+      if (!category || typeof category !== 'object') return null;
+
+      const type = category.type === 'income' ? 'income' : 'expense';
+      const label = String(category.label || category.name || '').trim();
+      const icon = String(category.icon || '').trim();
+
+      if (!label || !icon) return null;
+
+      return {
+        id: String(category.id || 'cat_' + uid()),
+        label,
+        icon,
+        type
+      };
+    }
+
+    function getCompatibleImportData(data) {
+      const rawRecords = Array.isArray(data)
+        ? data
+        : parseJsonArray(data.records) || parseJsonArray(data.healing_records);
+
+      if (!rawRecords) return null;
+
+      const importedRecords = rawRecords
+        .map(normalizeImportedRecord)
+        .filter(Boolean);
+
+      const rawCategories = Array.isArray(data)
+        ? null
+        : parseJsonArray(data.categories) || parseJsonArray(data.healing_categories);
+
+      const importedCategories = rawCategories
+        ? rawCategories.map(normalizeImportedCategory).filter(Boolean)
+        : null;
+
+      const theme = Array.isArray(data)
+        ? null
+        : data.theme || data.healing_theme || null;
+
+      return {
+        records: importedRecords,
+        categories: importedCategories,
+        theme
+      };
+    }
+
+    function importDataFromFile(file) {
+      if (!file) return;
+
+      const reader = new FileReader();
+
+      reader.onload = event => {
+        try {
+          const data = JSON.parse(event.target.result);
+          const importedData = getCompatibleImportData(data);
+
+          if (!importedData || importedData.records.length === 0) {
+            showToast('匯入失敗：檔案格式不正確');
+            return;
+          }
+
+          const confirmed = confirm('匯入資料會覆蓋目前的記帳紀錄；若檔案內有分類設定，也會一併覆蓋。確定要繼續嗎？');
+          if (!confirmed) return;
+
+          records = importedData.records;
+
+          if (importedData.categories && importedData.categories.length > 0) {
+            categories = importedData.categories;
+          }
+
+          saveRecords();
+          saveCategories();
+
+          if (THEME_VALUES.includes(importedData.theme)) {
+            localStorage.setItem('healing_theme', importedData.theme);
+          }
+
+          selectedCat = null;
+          populateDateSelects();
+          setDateSelects(getTodayDate());
+          initCompareControls();
+          loadTheme();
+          setType(currentType);
+          renderCats();
+          renderPage();
+          showToast('資料已匯入');
+        } catch (error) {
+          showToast('匯入失敗：無法讀取檔案');
+        }
+      };
+
+      reader.onerror = () => {
+        showToast('匯入失敗：無法讀取檔案');
+      };
+
+      reader.readAsText(file, 'utf-8');
+    }
+
     function getMockInsight() {
       const currentRecords = records.filter(r => r.date && r.date.slice(0, 7) === currentMonth);
       const exp = currentRecords.filter(r => r.type === 'expense').reduce((s, r) => s + Number(r.amount || 0), 0);
       const inc = currentRecords.filter(r => r.type === 'income').reduce((s, r) => s + Number(r.amount || 0), 0);
       const balance = inc - exp;
+      const averageDays = getAverageExpenseDays(currentMonth);
+      const dailyExpense = Math.round(exp / averageDays);
+      const dailySummary = `目前月份：${getMonthText(currentMonth)}\n日均支出：約 ${money(dailyExpense)} / 天\n計算方式：支出 ${money(exp)} ÷ ${averageDays} 天`;
 
       if (currentRecords.length === 0) {
-        alert('AI 理財精靈：這個月還沒有紀錄喔，先記下一筆，讓我幫你觀察金錢流向吧 ✨');
+        alert(`AI 理財精靈：\n${dailySummary}\n\n這個月還沒有紀錄喔，先記下一筆，讓我幫你觀察金錢流向吧 ✨`);
       } else if (exp === 0) {
-        alert('AI 理財精靈：你這個月還沒有支出紀錄，是個超棒的開始喔 ✨');
+        alert(`AI 理財精靈：\n${dailySummary}\n\n你這個月還沒有支出紀錄，是個超棒的開始喔 ✨`);
       } else if (balance > 0 && exp < 5000) {
-        alert('AI 理財精靈：你目前支出控制得很好，而且還有結餘，是非常穩定的理財節奏 💖');
+        alert(`AI 理財精靈：\n${dailySummary}\n\n你目前支出控制得很好，而且還有結餘，是非常穩定的理財節奏 💖`);
       } else if (balance > 0) {
-        alert('AI 理財精靈：這個月仍有結餘，建議可以檢查主要支出分類，找出最值得保留與可以調整的花費 💡');
+        alert(`AI 理財精靈：\n${dailySummary}\n\n這個月仍有結餘，建議可以檢查主要支出分類，找出最值得保留與可以調整的花費 💡`);
       } else {
-        alert('AI 理財精靈：這個月支出已超過收入，可以先檢查主要支出分類，找出下個月最容易改善的地方 💪');
+        alert(`AI 理財精靈：\n${dailySummary}\n\n這個月支出已超過收入，可以先檢查主要支出分類，找出下個月最容易改善的地方 💪`);
       }
     }
 
@@ -2281,6 +3105,9 @@
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('category-modal').addEventListener('click', function(event) {
         if (event.target === this) closeCategoryManager();
+      });
+      document.getElementById('import-file').addEventListener('change', function(event) {
+        importDataFromFile(event.target.files[0]);
       });
 
       bindMonthButton('month-prev-btn', -1);
